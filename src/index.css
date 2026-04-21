@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", sans-serif;
+  
+  --color-primary-start: #38bdf8;
+  --color-primary-mid: #818cf8;
+  --color-primary-end: #c084fc;
+  --color-accent: #38bdf8;
+  
+  --color-brand-blue: #2563eb;
+  --color-brand-purple: #9333ea;
+}
+
+@layer base {
+  body {
+    @apply bg-[#020617] text-[#f8fafc] font-sans antialiased;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply rounded-3xl;
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    @apply rounded-3xl;
+  }
+
+  .badge {
+    background: rgba(129, 140, 248, 0.15);
+    color: #818cf8;
+    @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider w-fit;
+  }
+
+  .btn-primary {
+    @apply bg-linear-to-br from-brand-blue to-brand-purple text-white font-semibold flex items-center justify-center transition-all hover:opacity-90 active:scale-95;
+  }
+
+  .btn-outline {
+    @apply border border-white/20 text-white bg-transparent font-semibold flex items-center justify-center transition-all hover:bg-white/5 active:scale-95;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-bg {
+    @apply bg-linear-to-br from-brand-blue to-brand-purple;
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
