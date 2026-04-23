@@ -507,14 +507,14 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-8">
             {NAV_ITEMS.map((item) => (
               <div key={item.name} className="relative group">
-                <a href={item.href} className="text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1">
+                <Link to={item.href} className="text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1">
                   {item.name}
-                </a>
+                </Link>
               </div>
             ))}
-            <a href="#contact" className="btn-primary px-7 py-2.5 rounded-xl text-sm shadow-xl shadow-brand-blue/20">
+            <Link to="/contact" className="btn-primary px-7 py-2.5 rounded-xl text-sm shadow-xl shadow-brand-blue/20">
               Join Workshop
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
@@ -578,23 +578,26 @@ const Navbar = () => {
                 style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}
               >
                 {NAV_ITEMS.map((item, i) => {
-                  const isActive = typeof window !== 'undefined' && window.location.hash === item.href;
+                  const isActive = typeof window !== 'undefined' && (window.location.pathname === item.href || window.location.hash === item.href);
                   return (
-                    <motion.a 
-                      key={item.name} 
-                      href={item.href} 
-                      initial={{ x: 30, opacity: 0, translateZ: 50 }}
-                      animate={{ x: 0, opacity: 1, translateZ: 0 }}
+                    <motion.div 
+                      key={item.name}
+                      initial={{ x: 30, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
                       transition={{ delay: i * 0.08, type: 'spring', damping: 20 }}
-                      onClick={() => setMobileMenuOpen(false)} 
-                      className={`flex items-center gap-5 text-lg font-bold transition-all py-4 px-6 w-full rounded-2xl group hover:scale-[1.05] hover:bg-white/5 hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] ${isActive ? 'bg-white/10 text-primary-start shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'text-slate-300 hover:text-white'}`}
-                      style={{ transformStyle: 'preserve-3d' }}
+                      className="w-full"
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isActive ? 'bg-primary-start text-white shadow-[0_0_15px_rgba(56,189,248,0.4)]' : 'bg-white/5 text-slate-500 group-hover:text-primary-start group-hover:bg-white/10'}`}>
-                        {item.icon && <item.icon size={20} />}
-                      </div>
-                      <span className={isActive ? 'gradient-text' : ''}>{item.name}</span>
-                    </motion.a>
+                      <Link 
+                        to={item.href} 
+                        onClick={() => setMobileMenuOpen(false)} 
+                        className={`flex items-center gap-5 text-lg font-bold transition-all py-4 px-6 w-full rounded-2xl group hover:scale-[1.05] hover:bg-white/5 hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] ${isActive ? 'bg-white/10 text-primary-start shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'text-slate-300 hover:text-white'}`}
+                      >
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isActive ? 'bg-primary-start text-white shadow-[0_0_15px_rgba(56,189,248,0.4)]' : 'bg-white/5 text-slate-500 group-hover:text-primary-start group-hover:bg-white/10'}`}>
+                          {item.icon && <item.icon size={20} />}
+                        </div>
+                        <span className={isActive ? 'gradient-text' : ''}>{item.name}</span>
+                      </Link>
+                    </motion.div>
                   );
                 })}
                 
@@ -607,9 +610,9 @@ const Navbar = () => {
                   <a href="tel:9203544140" className="btn-outline py-4 rounded-xl flex items-center justify-center gap-3 font-bold bg-white/5 border-white/10 hover:border-primary-start transition-all">
                     <Phone size={18} /> 9203544140
                   </a>
-                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="btn-primary py-4 rounded-xl text-center font-bold shadow-[0_10px_30px_rgba(79,70,229,0.3)] hover:shadow-[0_15px_40px_rgba(79,70,229,0.5)] transition-all">
+                  <Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="btn-primary py-4 rounded-xl text-center font-bold shadow-[0_10px_30px_rgba(79,70,229,0.3)] hover:shadow-[0_15px_40px_rgba(79,70,229,0.5)] transition-all">
                     Get Free Quote
-                  </a>
+                  </Link>
                 </motion.div>
               </div>
 
@@ -663,9 +666,9 @@ const Hero = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-10 md:mb-12">
-            <a href="#contact" className="btn-primary w-full sm:w-auto px-10 min-h-[50px] rounded-xl text-sm shadow-2xl shadow-brand-blue/30">
+            <Link to="/contact" className="btn-primary w-full sm:w-auto px-10 min-h-[50px] rounded-xl text-sm shadow-2xl shadow-brand-blue/30 flex items-center justify-center">
               Get Free Quote
-            </a>
+            </Link>
             <a href="tel:9203544140" className="btn-outline w-full sm:w-auto px-10 min-h-[50px] rounded-xl text-sm">
               Call Now: 9203544140
             </a>
@@ -1132,9 +1135,9 @@ const CTASection = () => {
               Get a custom feasibility report for your location.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="#contact" className="btn-primary px-10 py-4 rounded-xl shadow-2xl shadow-brand-blue/30 text-[11px] uppercase tracking-widest font-black w-full sm:w-auto">
+              <Link to="/contact" className="btn-primary px-10 py-4 rounded-xl shadow-2xl shadow-brand-blue/30 text-[11px] uppercase tracking-widest font-black w-full sm:w-auto flex items-center justify-center">
                 Get Free Quote
-              </a>
+              </Link>
               <a href="tel:9203544140" className="btn-outline px-10 py-4 rounded-xl text-[11px] uppercase tracking-widest font-black w-full sm:w-auto">
                 Consult with Expert
               </a>
