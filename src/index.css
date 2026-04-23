@@ -12,15 +12,33 @@
   
   --color-brand-blue: #2563eb;
   --color-brand-purple: #9333ea;
+
+  /* Typography Scale for Mobile (Default) */
+  --text-mobile-h: 1.25rem; /* 20px */
+  --text-mobile-sh: 0.9375rem; /* 15px */
+  --text-mobile-body: 0.8125rem; /* 13px */
 }
 
 @layer base {
   body {
-    @apply bg-[#020617] text-[#f8fafc] font-sans antialiased;
+    @apply bg-[#020617] text-[#f8fafc] font-sans antialiased overflow-x-hidden;
   }
+
+  /* Mobile First Typography Defaults */
+  h1, h2 { @apply text-[1.25rem] md:text-[2.5rem] font-bold tracking-tight; }
+  h3 { @apply text-[1rem] md:text-2xl font-bold; }
+  p { @apply text-[0.8125rem] md:text-base text-slate-400; }
 }
 
 @layer components {
+  .section-padding {
+    @apply pt-16 pb-12 md:py-24 px-4 md:px-12;
+  }
+  
+  .card-padding {
+    @apply p-5 md:p-10;
+  }
+
   .glass {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(12px);
