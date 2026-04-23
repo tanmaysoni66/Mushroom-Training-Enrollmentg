@@ -4,6 +4,8 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useForm, ValidationError } from '@formspree/react';
 import { 
   Menu, X, Phone, Mail, Instagram, Facebook, Youtube, Send, 
   CheckCircle2, TrendingUp, Users, Sprout, ShieldCheck, 
@@ -422,12 +424,12 @@ const STATES = [
 ];
 
 const NAV_ITEMS = [
-  { name: "Home", href: "#home", icon: Home },
-  { name: "Services", href: "#services", icon: Layers },
-  { name: "Resources", href: "#resources", icon: BookOpen },
-  { name: "Training", href: "#training", icon: Award },
-  { name: "Market", href: "#market", icon: ShoppingCart },
-  { name: "Contact", href: "#contact", icon: MessageCircle }
+  { name: "Home", href: "/", isExternal: false, icon: Home },
+  { name: "Services", href: "/#services", isExternal: false, icon: Layers },
+  { name: "Resources", href: "/#resources", isExternal: false, icon: BookOpen },
+  { name: "Training", href: "/#training", isExternal: false, icon: Award },
+  { name: "Market", href: "/#market", isExternal: false, icon: ShoppingCart },
+  { name: "Contact", href: "/contact", isExternal: false, icon: MessageCircle }
 ];
 
 // --- Components ---
@@ -1107,82 +1109,230 @@ const Timeline = () => {
   );
 };
 
-const ContactForm = () => {
+const CTASection = () => {
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-          <div className="text-center lg:text-left">
-            <div className="badge mb-4 mx-auto lg:mx-0">Contact Us</div>
-            <h2 className="mb-6 tracking-tighter">Ready to <span className="gradient-text">Scale Up?</span></h2>
-            <p className="mb-10">Connect with specialists for a personalized project breakdown.</p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-md mx-auto lg:mx-0">
-              {[
-                { icon: Phone, label: "Call Us", value: "+91 92035 44140" },
-                { icon: Mail, label: "Email Support", value: "support@mushroomtraining.online" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 p-5 glass border-white/5 text-left">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-primary-start">
-                    <item.icon size={20} />
-                  </div>
-                  <div>
-                    <div className="text-[8px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">{item.label}</div>
-                    <div className="text-base font-bold text-white leading-none">{item.value}</div>
-                  </div>
-                </div>
-              ))}
+    <section className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 gradient-bg opacity-5 -z-10 blur-[120px]"></div>
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="glass p-8 md:p-16 rounded-[3rem] border border-white/10 text-center relative overflow-hidden group">
+          <div className="absolute -top-24 -left-24 w-60 h-60 bg-primary-start/10 blur-[80px] rounded-full group-hover:bg-primary-start/20 transition-all duration-700"></div>
+          <div className="absolute -bottom-24 -right-24 w-60 h-60 bg-brand-purple/10 blur-[80px] rounded-full group-hover:bg-brand-purple/20 transition-all duration-700"></div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="badge mx-auto mb-6">Ready to Start?</div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+              Start Your <span className="gradient-text">Mushroom Project</span> Today
+            </h2>
+            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
+              Join the organic revolution with India's most trusted infrastructure and training partner. 
+              Get a custom feasibility report for your location.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="#contact" className="btn-primary px-10 py-4 rounded-xl shadow-2xl shadow-brand-blue/30 text-[11px] uppercase tracking-widest font-black w-full sm:w-auto">
+                Get Free Quote
+              </a>
+              <a href="tel:9203544140" className="btn-outline px-10 py-4 rounded-xl text-[11px] uppercase tracking-widest font-black w-full sm:w-auto">
+                Consult with Expert
+              </a>
             </div>
-
-            <div className="mt-8 flex justify-center lg:justify-start gap-4">
-              {[
-                { icon: Instagram, href: "https://www.instagram.com/organic_mushroom_farm_jabalpur" },
-                { icon: Facebook, href: "https://www.facebook.com/organic.mushroom.farm0" },
-                { icon: Youtube, href: "https://www.youtube.com/@organicmushroomfarm" }
-              ].map((social, i) => (
-                <a key={i} href={social.href} className="w-10 h-10 rounded-xl glass flex items-center justify-center">
-                  <social.icon size={16} className="text-slate-400" />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="glass card-padding border border-white/10 shadow-2xl relative">
-            <form action="https://formspree.io/f/xykldqdy" method="POST" className="space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
-                <div className="space-y-1.5">
-                  <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
-                  <input 
-                    name="name" required type="text" placeholder="John Doe" 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-start transition-all text-[13px]"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
-                  <input 
-                    name="email" required type="email" placeholder="john@example.com" 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-start transition-all text-[13px]"
-                  />
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-1">Message</label>
-                <textarea 
-                  name="message" required rows={3} placeholder="Your project requirements..." 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-start transition-all resize-none text-[13px]"
-                ></textarea>
-              </div>
-              <button 
-                type="submit" 
-                className="btn-primary w-full min-h-[50px] py-4 rounded-xl shadow-2xl shadow-brand-blue/30 text-[11px] uppercase tracking-widest font-black"
-              >
-                Send Request <Send size={14} className="ml-2" />
-              </button>
-            </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
+  );
+};
+
+const ContactPage = () => {
+  const [state, handleSubmit] = useForm('xykldqdy');
+
+  return (
+    <div className="min-h-screen bg-black overflow-x-hidden pt-24 md:pt-32 pb-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Header Section */}
+        <div className="text-center mb-10 md:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="inline-block px-4 py-1.5 rounded-full bg-primary-start/10 border border-primary-start/20 text-[10px] font-black text-primary-start uppercase tracking-widest mb-4">
+              Contact Us
+            </div>
+            <h1 className="text-3xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
+              Start Your <span className="text-primary-start">Mushroom</span> Business
+            </h1>
+            <p className="text-slate-400 text-sm md:text-lg max-w-2xl mx-auto font-medium px-2">
+              Ready to build a commercial factory or a small unit? Our specialists are here to guide you through every step.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
+          {/* Details Column */}
+          <div className="space-y-6 order-2 lg:order-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+              {[
+                { 
+                  icon: Phone, 
+                  label: "Call Operations", 
+                  values: ["+91 9203544140", "+91 7440806690"],
+                  href: "tel:+919203544140"
+                },
+                { 
+                  icon: MessageCircle, 
+                  label: "WhatsApp Support", 
+                  values: ["Chat with Expert"],
+                  isWhatsApp: true,
+                  href: "https://wa.me/919203544140"
+                },
+                { 
+                  icon: Mail, 
+                  label: "Email Support", 
+                  values: ["support@mushroomtraining.online"],
+                  href: "mailto:support@mushroomtraining.online"
+                }
+              ].map((item, i) => (
+                <a 
+                  key={i} 
+                  href={item.href}
+                  target={item.isWhatsApp ? "_blank" : undefined}
+                  rel={item.isWhatsApp ? "noopener noreferrer" : undefined}
+                  className={`flex items-center gap-4 p-5 bg-white/[0.03] border border-white/10 rounded-2xl group transition-all hover:bg-white/[0.06] ${item.isWhatsApp ? 'ring-1 ring-green-500/30' : ''}`}
+                >
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${item.isWhatsApp ? 'bg-green-500/20 text-green-400' : 'bg-primary-start/20 text-primary-start'}`}>
+                    <item.icon size={22} className={item.isWhatsApp ? 'animate-pulse' : ''} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">{item.label}</div>
+                    <div className="text-sm md:text-base font-bold text-white tracking-tight">{item.values[0]}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* Google Map Optimized for Mobile */}
+            <div className="rounded-2xl border border-white/10 overflow-hidden h-44 md:h-64 bg-white/5 relative">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.6593645366115!2d79.86616429726563!3d23.186307199999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3981ae1a0dbcbb97%3A0x15f3810ec56063b4!2sJabalpur%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1713881900000!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+              ></iframe>
+            </div>
+            
+            <div className="p-5 bg-white/[0.03] border border-white/10 rounded-2xl flex items-start gap-4">
+              <MapPin className="text-primary-start shrink-0" size={20} />
+              <div>
+                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Office Address</div>
+                <div className="text-sm font-bold text-white tracking-tight leading-snug">Katangi Road, Jabalpur, Madhya Pradesh – 483105</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Clean Enquiry Form */}
+          <div className="order-1 lg:order-2">
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-white/[0.02] border border-white/10 p-6 md:p-10 rounded-3xl"
+            >
+              <div className="mb-8 text-center md:text-left">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Enquiry Form</h3>
+                <p className="text-slate-400 text-sm font-medium">Please fill in your details for a callback.</p>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Hidden date field */}
+                <input type="hidden" name="_date" value={new Date().toLocaleDateString()} />
+                
+                <div className="space-y-1.5">
+                  <label htmlFor="name" className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Name *</label>
+                  <input 
+                    id="name" name="name" required type="text" placeholder="Your Name" 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary-start transition-all text-sm font-medium placeholder:text-slate-700 h-12 md:h-14"
+                  />
+                  <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-500 text-[10px] mt-1 ml-1" />
+                </div>
+                
+                <div className="space-y-1.5">
+                  <label htmlFor="email" className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Address *</label>
+                  <input 
+                    id="email" name="email" required type="email" placeholder="yourname@example.com" 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary-start transition-all text-sm font-medium placeholder:text-slate-700 h-12 md:h-14"
+                  />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-[10px] mt-1 ml-1" />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="message" className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Your Message *</label>
+                  <textarea 
+                    id="message" name="message" required rows={4} placeholder="Briefly describe your requirements..." 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary-start transition-all resize-none text-sm font-medium placeholder:text-slate-700 min-h-[100px]"
+                  ></textarea>
+                  <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-500 text-[10px] mt-1 ml-1" />
+                </div>
+
+                <button 
+                  type="submit" 
+                  disabled={state.submitting}
+                  className={`w-full py-5 rounded-xl bg-primary-start text-white text-[12px] uppercase tracking-widest font-black transition-all hover:brightness-110 active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-brand-blue/20 ${state.submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {state.submitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>Send Enquiry</>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Success Modal */}
+      <AnimatePresence>
+        {state.succeeded && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+             <motion.div 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+               className="absolute inset-0 bg-black/95 backdrop-blur-sm"
+               onClick={() => window.location.reload()}
+             ></motion.div>
+             
+             <motion.div 
+               initial={{ opacity: 0, scale: 0.9, y: 10 }}
+               animate={{ opacity: 1, scale: 1, y: 0 }}
+               exit={{ opacity: 0, scale: 0.9, y: 10 }}
+               className="relative bg-zinc-900 p-8 md:p-12 rounded-3xl border border-white/10 max-w-md w-full text-center shadow-2xl"
+             >
+                <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mx-auto mb-6 border border-green-500/30">
+                  <CheckCircle2 size={32} />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Enquiry Received</h3>
+                <p className="text-slate-400 text-sm mb-8 leading-relaxed font-medium">
+                  Thank you! Your enquiry has been received. Our expert will call you within <span className="text-white font-bold underline decoration-primary-start underline-offset-4">24 hours</span>.
+                </p>
+                <button 
+                  onClick={() => window.location.reload()}
+                  className="w-full py-4 rounded-xl bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-slate-200 transition-all shadow-xl"
+                >
+                  Close
+                </button>
+             </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
@@ -1267,43 +1417,44 @@ const Footer = () => {
 const FloatingButtons = () => {
   return (
     <>
-      <div className="fixed bottom-24 right-6 z-[100] flex flex-col gap-3 hidden md:flex">
+      <div className="fixed bottom-28 right-6 z-[100] flex flex-col gap-4 hidden md:flex">
         <a 
           href="https://wa.me/919203544140" 
-          className="w-14 h-14 rounded-full bg-green-500 text-white flex items-center justify-center shadow-2xl shadow-green-500/40 hover:scale-110 active:scale-95 transition-all"
+          className="w-16 h-16 rounded-full bg-green-500 text-white flex items-center justify-center shadow-[0_10px_40px_rgba(34,197,94,0.4)] hover:scale-110 active:scale-95 transition-all animate-bounce"
           target="_blank" rel="noopener noreferrer"
         >
-          <MessageCircle size={28} />
+          <MessageCircle size={32} />
         </a>
         <a 
           href="tel:9203544140" 
-          className="w-14 h-14 rounded-full btn-primary text-white flex items-center justify-center shadow-2xl shadow-brand-blue/40 hover:scale-110 active:scale-95 transition-all"
+          className="w-16 h-16 rounded-full btn-primary text-white flex items-center justify-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] hover:scale-110 active:scale-95 transition-all"
         >
-          <Phone size={24} />
+          <Phone size={28} />
         </a>
       </div>
 
-      {/* Mobile Sticky Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-[110] md:hidden glass border-t border-white/10 p-3 grid grid-cols-2 gap-3 pb-[env(safe-area-inset-bottom,12px)]">
+      {/* Mobile Sticky Bar - Conversion Optimized */}
+      <div className="fixed bottom-0 left-0 right-0 z-[110] md:hidden glass-dark border-t border-white/15 p-4 grid grid-cols-2 gap-4 pb-[env(safe-area-inset-bottom,16px)]">
         <a 
-          href="tel:9203544140" 
-          className="btn-outline min-h-[44px] rounded-xl flex items-center justify-center gap-2 text-[12px]"
+          href="tel:+919203544140" 
+          className="bg-white/10 hover:bg-white/20 text-white min-h-[52px] rounded-2xl flex items-center justify-center gap-3 text-[13px] font-black uppercase tracking-widest border border-white/10 transition-all active:scale-95"
         >
-          <Phone size={16} /> Call Now
+          <Phone size={18} className="text-primary-start" /> Call Now
         </a>
         <a 
           href="https://wa.me/919203544140" 
-          className="btn-primary min-h-[44px] rounded-xl flex items-center justify-center gap-2 text-[12px] bg-green-600 border-none shadow-green-500/20"
+          target="_blank" rel="noopener noreferrer"
+          className="btn-primary min-h-[52px] rounded-2xl flex items-center justify-center gap-3 text-[13px] font-black uppercase tracking-widest bg-green-600 border-none shadow-[0_10px_30px_rgba(34,197,94,0.3)] transition-all active:scale-95"
         >
-          <MessageCircle size={16} /> WhatsApp
+          <MessageCircle size={18} /> WhatsApp
         </a>
       </div>
 
       <button 
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-24 left-6 w-10 h-10 glass rounded-xl text-slate-400 z-[100] flex items-center justify-center md:flex hidden"
+        className="fixed bottom-28 left-6 w-12 h-12 glass rounded-2xl text-slate-400 z-[100] flex items-center justify-center md:flex hidden hover:bg-white/10 transition-all"
       >
-        <ChevronUp size={20} />
+        <ChevronUp size={24} />
       </button>
     </>
   );
@@ -1311,235 +1462,258 @@ const FloatingButtons = () => {
 
 // --- Main App ---
 
-export default function App() {
+const HomePage = () => {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
+
   return (
-    <div className="selection:bg-primary-start/30 selection:text-white">
-      <Background3D />
-      <Navbar />
+    <>
+      <Hero />
+      <EcosystemFlow />
+      <WhyChooseUs />
+      <FarmingModels />
+      <MushroomComparison />
+      <ROICalculator />
+      <CriticalParameters />
+      <ProductionSOP />
       
-      <main>
-        <Hero />
-        <EcosystemFlow />
-        <WhyChooseUs />
-        <FarmingModels />
-        <MushroomComparison />
-        <ROICalculator />
-        <CriticalParameters />
-        <ProductionSOP />
-        
-        {/* Compost Units Section */}
-        <section id="compost-units" className="section-padding relative overflow-hidden">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="badge mx-auto mb-4">Infrastructure</div>
-              <h2 className="mb-4 uppercase">Standard <span className="gradient-text">Compost Units</span></h2>
-              <p className="max-w-2xl mx-auto">Complete Phase-I + Phase-II infrastructure with 15-day cycles.</p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6 md:gap-10">
-              {[
-                { 
-                  name: "2000-Bag Unit (20T)", 
-                  desc: "14x30 System", 
-                  investment: "₹15-17 Lakh",
-                  stats: { bags: "2,000", cap: "20t", cycle: "15d" }
-                },
-                { 
-                  name: "3000-Bag Unit (30T)", 
-                  desc: "14x40 System", 
-                  investment: "₹19-21 Lakh",
-                  stats: { bags: "3,000", cap: "30t", cycle: "15d" },
-                  recommended: true
-                }
-              ].map((comp, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  className={`glass card-padding rounded-3xl border border-white/5 relative ${comp.recommended ? 'shadow-2xl shadow-brand-blue/10 border-primary-mid/30' : ''}`}
-                >
-                  {comp.recommended && <div className="absolute top-4 right-5 badge text-[8px]">Best Value</div>}
-                  <h3 className="text-white mb-2">{comp.name}</h3>
-                  <div className="text-slate-500 mb-6 font-medium text-[13px]">{comp.desc}</div>
-                  
-                  <div className="grid grid-cols-3 gap-3 mb-6">
-                    {Object.entries(comp.stats).map(([k, v]) => (
-                      <div key={k} className="p-2 md:p-4 rounded-xl bg-white/5 border border-white/5 text-center">
-                        <div className="text-[8px] text-slate-500 font-bold uppercase mb-1">{k}</div>
-                        <div className="text-sm md:text-lg font-bold text-white">{v}</div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 mb-6">
-                    <span className="text-[11px] font-semibold text-slate-400">Est. CapEx</span>
-                    <span className="text-lg font-bold text-white">{comp.investment}</span>
-                  </div>
-                  
-                  <button className="btn-primary w-full py-3.5 rounded-xl text-[12px] font-bold min-h-[44px]">Get Details</button>
-                </motion.div>
-              ))}
-            </div>
+      {/* Compost Units Section */}
+      <section id="compost-units" className="section-padding relative overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="badge mx-auto mb-4">Infrastructure</div>
+            <h2 className="mb-4 uppercase">Standard <span className="gradient-text">Compost Units</span></h2>
+            <p className="max-w-2xl mx-auto">Complete Phase-I + Phase-II infrastructure with 15-day cycles.</p>
           </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="section-padding">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="badge mx-auto mb-4">Testimonials</div>
-              <h2 className="mb-4 uppercase">Real <span className="gradient-text">Voices</span></h2>
-              <p>Join 5000+ farmers trained by our expert team.</p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-5">
-              {[
-                { name: "Rahul S.", location: "Jabalpur", text: "Turnkey setup changed my perspective. Outstanding support even after 2 years.", avatar: "RS" },
-                { name: "Deepak M.", location: "Indore", text: "Professional SOPs. Yield exceeded expectations by 20% due to climate design.", avatar: "DM" },
-                { name: "Suresh K.", location: "Sagar", text: "Honest ROI analysis. No hidden costs, just pure business growth.", avatar: "SK" }
-              ].map((t, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="glass p-6 rounded-3xl border border-white/5 flex flex-col h-full"
-                >
-                  <Quote size={20} className="text-primary-start mb-4 opacity-40" />
-                  <p className="text-slate-300 text-[13px] italic mb-6 leading-relaxed flex-1">"{t.text}"</p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full gradient-bg flex items-center justify-center font-bold text-white text-[10px] shadow-lg">
-                      {t.avatar}
-                    </div>
-                    <div>
-                      <div className="text-white font-bold text-[12px] tracking-tight">{t.name}</div>
-                      <div className="text-[8px] text-slate-500 font-black uppercase tracking-widest">{t.location}</div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Marketplace Section Placeholder */}
-        <section id="market" className="section-padding relative overflow-hidden">
-          <div className="max-w-7xl mx-auto text-center">
-            <div className="badge mx-auto mb-4">Market Linkage</div>
-            <h2 className="mb-4">Mushroom <span className="gradient-text">Exchange</span></h2>
-            <p className="max-w-xl mx-auto mb-12 font-medium">Connect directly with verified buyers and sellers.</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left p-2">
-              {[
-                { type: "Seller", title: "Fresh Milky Mushrooms", locale: "West Bengal", price: "₹140/kg" },
-                { type: "Buyer", title: "Oyster Spawn Needed", locale: "Madhya Pradesh", price: "Bulk Order" },
-                { type: "Seller", title: "Dry Button Mushrooms", locale: "Punjab", price: "₹850/kg" },
-              ].map((ad, i) => (
-                <div key={i} className="glass p-5 rounded-2xl border border-white/5 relative group cursor-pointer">
-                  <div className={`absolute top-4 right-4 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest ${ad.type === 'Seller' ? 'bg-blue-500/20 text-blue-400' : 'bg-orange-500/20 text-orange-400'}`}>
-                    {ad.type}
-                  </div>
-                  <h3 className="text-white mb-1 mt-4 tracking-tight">{ad.title}</h3>
-                  <div className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-6 flex items-center gap-2">
-                    <MapPin size={10} className="text-primary-start" /> {ad.locale}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-white font-bold text-lg">{ad.price}</span>
-                    <button className="w-9 h-9 rounded-lg bg-white/5 text-slate-400 flex items-center justify-center">
-                      <ArrowRight size={16} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="btn-outline mt-10 px-8 py-3.5 rounded-xl text-[12px] font-bold min-h-[44px]">
-              Browse All Listings
-            </button>
-          </div>
-        </section>
-
-        {/* Resources & SOPs Section */}
-        <section id="resources" className="section-padding bg-white/[0.01]">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-              <div>
-                <div className="badge mb-6 mx-auto lg:mx-0">Documentation</div>
-                <h2 className="mb-6 uppercase text-center lg:text-left">Production <span className="gradient-text">SOPs</span></h2>
-                <p className="mb-10 text-center lg:text-left">Standard operating procedures used by specialists nationwide.</p>
+          
+          <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+            {[
+              { 
+                name: "2000-Bag Unit (20T)", 
+                desc: "14x30 System", 
+                investment: "₹15-17 Lakh",
+                stats: { bags: "2,000", cap: "20t", cycle: "15d" }
+              },
+              { 
+                name: "3000-Bag Unit (30T)", 
+                desc: "14x40 System", 
+                investment: "₹19-21 Lakh",
+                stats: { bags: "3,000", cap: "30t", cycle: "15d" },
+                recommended: true
+              }
+            ].map((comp, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className={`glass card-padding rounded-3xl border border-white/5 relative ${comp.recommended ? 'shadow-2xl shadow-brand-blue/10 border-primary-mid/30' : ''}`}
+              >
+                {comp.recommended && <div className="absolute top-4 right-5 badge text-[8px]">Best Value</div>}
+                <h3 className="text-white mb-2">{comp.name}</h3>
+                <div className="text-slate-500 mb-6 font-medium text-[13px]">{comp.desc}</div>
                 
-                <div className="md:hidden">
-                  {[
-                    { title: "Tunnel Ops", content: "Details for Phase-II Pasteurization Tunnel operations and parameters." },
-                    { title: "Spawning", content: "Comprehensive checklist for spawning and incubation stages." },
-                    { title: "Casing", content: "Material preparation guide for optimal casing layer." },
-                    { title: "Hygiene", content: "Disease control protocols and farm hygiene standards." }
-                  ].map((sop, i) => (
-                    <Collapsible key={i} title={sop.title}>
-                      {sop.content}
-                      <button className="flex items-center gap-2 text-primary-start font-bold mt-3">
-                        <Download size={14} /> Download PDF
-                      </button>
-                    </Collapsible>
-                  ))}
-                </div>
-
-                <div className="hidden md:block space-y-4">
-                  {[
-                    "Phase-II Pasteurization Tunnel Ops",
-                    "Spawning & Incubation Checklist",
-                    "Casing Material Preparation Guide",
-                    "Disease Control & Hygiene Protocols"
-                  ].map(sop => (
-                    <div key={sop} className="flex items-center gap-4 p-5 glass rounded-2xl border border-white/5 group hover:bg-white/5 transition-all cursor-pointer">
-                      <div className="w-10 h-10 rounded-xl bg-primary-start/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Download size={18} className="text-primary-start" />
-                      </div>
-                      <span className="text-sm font-bold text-slate-300">{sop}</span>
-                      <ArrowRight className="ml-auto text-slate-700 group-hover:translate-x-1 transition-transform" size={16} />
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  {Object.entries(comp.stats).map(([k, v]) => (
+                    <div key={k} className="p-2 md:p-4 rounded-xl bg-white/5 border border-white/5 text-center">
+                      <div className="text-[8px] text-slate-500 font-bold uppercase mb-1">{k}</div>
+                      <div className="text-sm md:text-lg font-bold text-white">{v}</div>
                     </div>
                   ))}
+                </div>
+                
+                <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 shadow shadow-brand-blue/10 ring-1 ring-white/10 ring-inset mb-6">
+                  <span className="text-[11px] font-semibold text-slate-400">Est. CapEx</span>
+                  <span className="text-lg font-bold text-white">{comp.investment}</span>
+                </div>
+                
+                <button className="btn-primary w-full py-3.5 rounded-xl text-[12px] font-bold min-h-[44px]">Get Details</button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="badge mx-auto mb-4">Testimonials</div>
+            <h2 className="mb-4 uppercase">Real <span className="gradient-text">Voices</span></h2>
+            <p>Join 5000+ farmers trained by our expert team.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              { name: "Rahul S.", location: "Jabalpur", text: "Turnkey setup changed my perspective. Outstanding support even after 2 years.", avatar: "RS" },
+              { name: "Deepak M.", location: "Indore", text: "Professional SOPs. Yield exceeded expectations by 20% due to climate design.", avatar: "DM" },
+              { name: "Suresh K.", location: "Sagar", text: "Honest ROI analysis. No hidden costs, just pure business growth.", avatar: "SK" }
+            ].map((t, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="glass p-6 rounded-3xl border border-white/5 flex flex-col h-full"
+              >
+                <Quote size={20} className="text-primary-start mb-4 opacity-40" />
+                <p className="text-slate-300 text-[13px] italic mb-6 leading-relaxed flex-1">"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full gradient-bg flex items-center justify-center font-bold text-white text-[10px] shadow-lg">
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div className="text-white font-bold text-[12px] tracking-tight">{t.name}</div>
+                    <div className="text-[8px] text-slate-500 font-black uppercase tracking-widest">{t.location}</div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Marketplace Section Placeholder */}
+      <section id="market" className="section-padding relative overflow-hidden">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="badge mx-auto mb-4">Market Linkage</div>
+          <h2 className="mb-4">Mushroom <span className="gradient-text">Exchange</span></h2>
+          <p className="max-w-xl mx-auto mb-12 font-medium">Connect directly with verified buyers and sellers.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left p-2">
+            {[
+              { type: "Seller", title: "Fresh Milky Mushrooms", locale: "West Bengal", price: "₹140/kg" },
+              { type: "Buyer", title: "Oyster Spawn Needed", locale: "Madhya Pradesh", price: "Bulk Order" },
+              { type: "Seller", title: "Dry Button Mushrooms", locale: "Punjab", price: "₹850/kg" },
+            ].map((ad, i) => (
+              <div key={i} className="glass p-5 rounded-2xl border border-white/5 relative group cursor-pointer">
+                <div className={`absolute top-4 right-4 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest ${ad.type === 'Seller' ? 'bg-blue-500/20 text-blue-400' : 'bg-orange-500/20 text-orange-400'}`}>
+                  {ad.type}
+                </div>
+                <h3 className="text-white mb-1 mt-4 tracking-tight">{ad.title}</h3>
+                <div className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-6 flex items-center gap-2">
+                  <MapPin size={10} className="text-primary-start" /> {ad.locale}
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-white font-bold text-lg">{ad.price}</span>
+                  <button className="w-9 h-9 rounded-lg bg-white/5 text-slate-400 flex items-center justify-center">
+                    <ArrowRight size={16} />
+                  </button>
                 </div>
               </div>
+            ))}
+          </div>
+          <button className="btn-outline mt-10 px-8 py-3.5 rounded-xl text-[12px] font-bold min-h-[44px]">
+            Browse All Listings
+          </button>
+        </div>
+      </section>
+
+      {/* Resources & SOPs Section */}
+      <section id="resources" className="section-padding bg-white/[0.01]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <div>
+              <div className="badge mb-6 mx-auto lg:mx-0">Documentation</div>
+              <h2 className="mb-6 uppercase text-center lg:text-left">Production <span className="gradient-text">SOPs</span></h2>
+              <p className="mb-10 text-center lg:text-left">Standard operating procedures used by specialists nationwide.</p>
               
-              <div className="relative">
-                <div className="absolute inset-0 gradient-bg opacity-10 blur-[80px] rounded-full"></div>
-                <div className="relative glass p-6 md:p-10 rounded-[2.5rem] border border-white/10">
-                  <div className="flex items-center gap-4 mb-8 justify-center lg:justify-start">
-                    <BookOpen className="text-primary-start" size={24} />
-                    <h3 className="text-white tracking-tight">Knowledge Hub</h3>
+              <div className="md:hidden">
+                {[
+                  { title: "Tunnel Ops", content: "Details for Phase-II Pasteurization Tunnel operations and parameters." },
+                  { title: "Spawning", content: "Comprehensive checklist for spawning and incubation stages." },
+                  { title: "Casing", content: "Material preparation guide for optimal casing layer." },
+                  { title: "Hygiene", content: "Disease control protocols and farm hygiene standards." }
+                ].map((sop, i) => (
+                  <Collapsible key={i} title={sop.title}>
+                    {sop.content}
+                    <button className="flex items-center gap-2 text-primary-start font-bold mt-3">
+                      <Download size={14} /> Download PDF
+                    </button>
+                  </Collapsible>
+                ))}
+              </div>
+
+              <div className="hidden md:block space-y-4">
+                {[
+                  "Phase-II Pasteurization Tunnel Ops",
+                  "Spawning & Incubation Checklist",
+                  "Casing Material Preparation Guide",
+                  "Disease Control & Hygiene Protocols"
+                ].map(sop => (
+                  <div key={sop} className="flex items-center gap-4 p-5 glass rounded-2xl border border-white/5 group hover:bg-white/5 transition-all cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl bg-primary-start/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Download size={18} className="text-primary-start" />
+                    </div>
+                    <span className="text-sm font-bold text-slate-300">{sop}</span>
+                    <ArrowRight className="ml-auto text-slate-700 group-hover:translate-x-1 transition-transform" size={16} />
                   </div>
-                  <div className="space-y-6">
-                    <div className="p-4 md:p-6 rounded-3xl bg-white/5 border border-white/10">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-[9px] text-slate-500 font-black uppercase tracking-widest">Featured</span>
-                        <div className="px-2 py-0.5 rounded bg-red-500/20 text-red-500 text-[8px] font-black uppercase">Video</div>
-                      </div>
-                      <div className="relative aspect-video rounded-2xl overflow-hidden mb-4 group cursor-pointer">
-                        <img loading="lazy" src="https://picsum.photos/seed/mushroom/800/450" alt="Training" className="w-full h-full object-cover opacity-60" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center pl-1 shadow-2xl">
-                            <Play size={20} fill="currentColor" />
-                          </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="relative">
+              <div className="absolute inset-0 gradient-bg opacity-10 blur-[80px] rounded-full"></div>
+              <div className="relative glass p-6 md:p-10 rounded-[2.5rem] border border-white/10">
+                <div className="flex items-center gap-4 mb-8 justify-center lg:justify-start">
+                  <BookOpen className="text-primary-start" size={24} />
+                  <h3 className="text-white tracking-tight">Knowledge Hub</h3>
+                </div>
+                <div className="space-y-6">
+                  <div className="p-4 md:p-6 rounded-3xl bg-white/5 border border-white/10">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[9px] text-slate-500 font-black uppercase tracking-widest">Featured</span>
+                      <div className="px-2 py-0.5 rounded bg-red-500/20 text-red-500 text-[8px] font-black uppercase">Video</div>
+                    </div>
+                    <div className="relative aspect-video rounded-2xl overflow-hidden mb-4 group cursor-pointer">
+                      <img loading="lazy" src="https://picsum.photos/seed/mushroom/800/450" alt="Training" className="w-full h-full object-cover opacity-60" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center pl-1 shadow-2xl">
+                          <Play size={20} fill="currentColor" />
                         </div>
                       </div>
-                      <h4 className="text-white font-bold text-[13px] tracking-tight">Composting Flow Explained</h4>
                     </div>
+                    <h4 className="text-white font-bold text-[13px] tracking-tight">Composting Flow Explained</h4>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <ComparisonTable />
-        <StatesSection />
-        <ContactForm />
-        <CompanyProfile />
-      </main>
+      <ComparisonTable />
+      <StatesSection />
+      <CTASection />
+      <CompanyProfile />
+    </>
+  );
+};
 
-      <Footer />
-      <FloatingButtons />
-    </div>
+export default function App() {
+  return (
+    <BrowserRouter>
+      <div className="selection:bg-primary-start/30 selection:text-white bg-black">
+        <Background3D />
+        <Navbar />
+        
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+
+        <Footer />
+        <FloatingButtons />
+      </div>
+    </BrowserRouter>
   );
 }
 
