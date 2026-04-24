@@ -2002,7 +2002,7 @@ const GalleryPage = () => {
     document.title = "Gallery | Modern Mushroom Farms & Infrastructure";
   }, []);
   const images = [
-    { src: "https://picsum.photos/seed/farm1/800/600", category: "Infrastructure" },
+    { src: "https://projectshelve.com/assets/images/products/1746695205Mushroom.jpg", category: "Infrastructure" },
     { src: "https://picsum.photos/seed/farm2/800/600", category: "Spawn" },
     { src: "https://picsum.photos/seed/farm3/800/600", category: "Training" },
     { src: "https://picsum.photos/seed/farm4/800/600", category: "Harvest" },
