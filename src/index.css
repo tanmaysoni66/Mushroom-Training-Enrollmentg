@@ -20,6 +20,9 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-[#020617] text-[#f8fafc] font-sans antialiased overflow-x-hidden;
   }

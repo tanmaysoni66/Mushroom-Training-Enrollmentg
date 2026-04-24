@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { useForm, ValidationError } from '@formspree/react';
 import { 
   Menu, X, Phone, Mail, Instagram, Facebook, Youtube, Send, 
@@ -475,13 +475,25 @@ const Background3D = () => (
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
+    const handleScrollSpy = () => {
+      setActiveSection(null);
+    };
+
+    window.addEventListener('scroll', handleScrollSpy);
+    handleScrollSpy();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScrollSpy);
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -510,7 +522,64 @@ const Navbar = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-6">
             {NAV_ITEMS.slice(0, -1).map((item) => {
-              const isActive = location.pathname === item.href;
+              const isHashLink = item.href.includes('#');
+              const hash = isHashLink ? item.href.split('#')[1] : null;
+              
+              const isActive = isHashLink 
+                ? (location.pathname === '/' && activeSection === hash)
+                : (location.pathname === item.href && !location.hash && activeSection === null);
+              
+              const linkProps = (isHashLink && location.pathname === '/') 
+                ? { 
+                    href: `#${hash}`, 
+                    onClick: (e: any) => {
+                      e.preventDefault();
+                      const element = document.getElementById(hash!);
+                      if (element) {
+                        const offset = 100;
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elementRect = element.getBoundingClientRect().top;
+                        const elementPosition = elementRect - bodyRect;
+                        const offsetPosition = elementPosition - offset;
+
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                        window.history.pushState(null, '', `/#${hash}`);
+                      }
+                    }
+                  } 
+                : { href: item.href };
+
+              if (isHashLink) {
+                 return (
+                  <div key={item.name} className="relative">
+                    {location.pathname === '/' ? (
+                      <a 
+                        {...linkProps}
+                        className={`text-[13px] font-bold transition-all flex items-center gap-1.5 px-3 py-1.5 rounded-lg ${isActive ? 'text-white bg-white/5' : 'text-slate-400 hover:text-white'}`}
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link 
+                        to={item.href}
+                        className={`text-[13px] font-bold transition-all flex items-center gap-1.5 px-3 py-1.5 rounded-lg ${isActive ? 'text-white bg-white/5' : 'text-slate-400 hover:text-white'}`}
+                      >
+                        {item.name}
+                      </Link>
+                    )}
+                    {isActive && (
+                      <motion.div 
+                        layoutId="nav-active"
+                        className="absolute -bottom-1 left-3 right-3 h-0.5 gradient-bg rounded-full"
+                      />
+                    )}
+                  </div>
+                );
+              }
+
               return (
                 <div key={item.name} className="relative">
                   <Link 
@@ -587,7 +656,12 @@ const Navbar = () => {
                 className="flex-1 w-full flex flex-col items-center justify-center gap-2 px-8 py-10 overflow-y-auto relative z-10"
               >
                 {NAV_ITEMS.map((item, i) => {
-                  const isActive = location.pathname === item.href;
+                  const isHashLink = item.href.includes('#');
+                  const hash = isHashLink ? item.href.split('#')[1] : null;
+                  const isActive = isHashLink 
+                    ? (location.pathname === '/' && activeSection === hash)
+                    : (location.pathname === item.href && !location.hash && activeSection === null);
+
                   return (
                     <motion.div 
                       key={item.name}
@@ -596,16 +670,46 @@ const Navbar = () => {
                       transition={{ delay: i * 0.08, type: 'spring', damping: 20 }}
                       className="w-full"
                     >
-                      <Link 
-                        to={item.href} 
-                        onClick={() => setMobileMenuOpen(false)} 
-                        className={`flex items-center gap-5 text-lg font-bold transition-all py-4 px-6 w-full rounded-2xl group hover:scale-[1.02] hover:bg-white/5 ${isActive ? 'bg-white/10 text-primary-start shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'text-slate-300 hover:text-white'}`}
-                      >
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isActive ? 'bg-primary-start text-white shadow-[0_0_15px_rgba(56,189,248,0.4)]' : 'bg-white/5 text-slate-500 group-hover:text-primary-start group-hover:bg-white/10'}`}>
-                          {item.icon && <item.icon size={20} />}
-                        </div>
-                        <span className={isActive ? 'gradient-text' : ''}>{item.name}</span>
-                      </Link>
+                      {isHashLink && location.pathname === '/' ? (
+                        <a 
+                          href={`#${hash}`} 
+                          onClick={(e) => {
+                            setMobileMenuOpen(false);
+                            e.preventDefault();
+                            const element = document.getElementById(hash!);
+                            if (element) {
+                              const offset = 80;
+                              const bodyRect = document.body.getBoundingClientRect().top;
+                              const elementRect = element.getBoundingClientRect().top;
+                              const elementPosition = elementRect - bodyRect;
+                              const offsetPosition = elementPosition - offset;
+
+                              window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                              });
+                              window.history.pushState(null, '', `/#${hash}`);
+                            }
+                          }} 
+                          className={`flex items-center gap-5 text-lg font-bold transition-all py-4 px-6 w-full rounded-2xl group hover:scale-[1.02] hover:bg-white/5 ${isActive ? 'bg-white/10 text-primary-start shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'text-slate-300 hover:text-white'}`}
+                        >
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isActive ? 'bg-primary-start text-white shadow-[0_0_15px_rgba(56,189,248,0.4)]' : 'bg-white/5 text-slate-500 group-hover:text-primary-start group-hover:bg-white/10'}`}>
+                            {item.icon && <item.icon size={20} />}
+                          </div>
+                          <span className={isActive ? 'gradient-text' : ''}>{item.name}</span>
+                        </a>
+                      ) : (
+                        <Link 
+                          to={item.href} 
+                          onClick={() => setMobileMenuOpen(false)} 
+                          className={`flex items-center gap-5 text-lg font-bold transition-all py-4 px-6 w-full rounded-2xl group hover:scale-[1.02] hover:bg-white/5 ${isActive ? 'bg-white/10 text-primary-start shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'text-slate-300 hover:text-white'}`}
+                        >
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isActive ? 'bg-primary-start text-white shadow-[0_0_15px_rgba(56,189,248,0.4)]' : 'bg-white/5 text-slate-500 group-hover:text-primary-start group-hover:bg-white/10'}`}>
+                            {item.icon && <item.icon size={20} />}
+                          </div>
+                          <span className={isActive ? 'gradient-text' : ''}>{item.name}</span>
+                        </Link>
+                      )}
                     </motion.div>
                   );
                 })}
@@ -1143,6 +1247,29 @@ const CTASection = () => {
   );
 };
 
+const TrainingPage = () => {
+  useEffect(() => {
+    document.title = "Professional Training | Organic Mushroom Farm";
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="pt-20">
+      <MushroomTraining />
+      
+      {/* Additional Page Specific Content */}
+      <section className="section-padding bg-black/40">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h3 className="text-2xl font-bold text-white mb-8">Ready to Start Your Journey?</h3>
+          <Link to="/contact" className="btn-primary px-10 py-4 rounded-xl text-lg inline-flex items-center gap-3">
+            Book a Consultation <ArrowRight size={20} />
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 const ContactPage = () => {
   const [state, handleSubmit, reset] = useForm('xykldqdy');
   const navigate = useNavigate();
@@ -1456,11 +1583,11 @@ const FloatingButtons = () => {
   }, []);
 
   const mobileNavItems = [
-    { label: "Spawn (Seed)", href: "#market", icon: Sprout },
-    { label: "Training", href: "#sop", icon: BookOpen },
-    { label: "Setup (Turnkey)", href: "#farming-models", icon: Home },
-    { label: "Bags", href: "#compost-units", icon: Layers },
-    { label: "Fresh Mushroom", href: "#market", icon: ShoppingCart },
+    { label: "Spawn (Seed)", href: "/#market", icon: Sprout },
+    { label: "Training", href: "/training", icon: BookOpen },
+    { label: "Setup (Turnkey)", href: "/#farming-models", icon: Home },
+    { label: "Bags", href: "/#compost-units", icon: Layers },
+    { label: "Fresh Mushroom", href: "/#market", icon: ShoppingCart },
     { label: "Call Us", href: "tel:+919203544140", icon: Phone },
   ];
 
@@ -1532,6 +1659,204 @@ const FloatingButtons = () => {
 };
 
 // --- Main App ---
+
+const MushroomTraining = () => {
+  const faqs = [
+    { q: "What is the duration of training?", a: "Online training is self-paced with lifetime access. Offline training is typically 3-5 days of intensive hands-on workshop." },
+    { q: "Is it beginner friendly?", a: "Absolutely! Our courses are designed from scratch, making them perfect for students, entrepreneurs, and hobbyists with zero farming background." },
+    { q: "Will I get support after training?", a: "Yes, we provide lifetime technical support for both online and offline students. You also get access to our private community for ongoing guidance." },
+  ];
+
+  const galleryImages = [
+    { src: "https://images.unsplash.com/photo-1591255421939-a0352ed08291?auto=format&fit=crop&q=80&w=800", alt: "Mushroom farming setup" },
+    { src: "https://images.unsplash.com/photo-1528733385394-4d4d10fcc864?auto=format&fit=crop&q=80&w=800", alt: "Training session" },
+    { src: "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=800", alt: "Students learning farming" },
+    { src: "https://images.unsplash.com/photo-1599307767316-776533da941c?auto=format&fit=crop&q=80&w=800", alt: "Button & Milky mushroom growth" },
+    { src: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=800", alt: "Indoor mushroom farm" },
+  ];
+
+  return (
+    <section id="training" className="relative pb-24 lg:pb-0 overflow-hidden">
+      {/* Tiny bit of Hero style for internal section */}
+      <div className="section-padding pt-16 md:pt-24 text-center">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <div className="badge mx-auto mb-6">Expert-Led Courses</div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight uppercase">
+              Professional <span className="gradient-text">Mushroom Farming</span> Training
+            </h2>
+            <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto font-medium mb-10">
+              Learn Button Mushroom Farming from Experts – Start Your Own Business Today. Comprehensive modules designed for maximum ROI.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Training Options Section */}
+      <div id="options" className="section-padding bg-white/5">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h3 className="text-2xl md:text-4xl font-bold text-white mb-4">Choose Your <span className="gradient-text">Training Model</span></h3>
+            <p className="text-slate-400">Select the path that fits your goals and budget.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+            {/* Online Training */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="glass p-8 md:p-12 rounded-[3rem] border border-white/10 relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-5">
+                <Play size={120} />
+              </div>
+              <div className="badge mb-6">Self-Paced</div>
+              <h4 className="text-3xl font-bold text-white mb-2">Online Training</h4>
+              <div className="text-4xl font-black gradient-text mb-6">₹399</div>
+              <ul className="space-y-4 mb-10">
+                {[
+                  "Complete A-Z Mushroom Farming Guide",
+                  "Step-by-Step Video Training",
+                  "Lifetime Access",
+                  "Beginner Friendly"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300 font-bold">
+                    <CheckCircle2 size={20} className="text-primary-start" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <a 
+                href="https://pages.razorpay.com/organicmushroomfarmtraining" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-primary w-full py-5 rounded-2xl font-bold text-center flex items-center justify-center gap-2 shadow-lg"
+              >
+                Enroll Now <ExternalLink size={20} />
+              </a>
+            </motion.div>
+
+            {/* Offline Training */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="glass p-8 md:p-12 rounded-[3rem] border border-white/10 relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-5">
+                <Users size={120} />
+              </div>
+              <div className="badge mb-6">Hands-on Workshop</div>
+              <h4 className="text-3xl font-bold text-white mb-2">Offline Training</h4>
+              <div className="text-4xl font-black gradient-text mb-6">₹3000</div>
+              <ul className="space-y-4 mb-10">
+                {[
+                  "Practical Hands-on Training",
+                  "Farm Visit & Live Demo",
+                  "Setup Guidance",
+                  "Marketing & Selling Tips"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300 font-bold">
+                    <CheckCircle2 size={20} className="text-green-500" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="grid grid-cols-2 gap-4">
+                <a href="tel:9203544140" className="btn-outline py-4 rounded-xl flex items-center justify-center gap-2 font-bold text-xs">
+                  <Phone size={16} /> Call Now
+                </a>
+                <a href="https://wa.me/919203544140" className="bg-[#25D366] hover:bg-[#128C7E] text-white py-4 rounded-xl flex items-center justify-center gap-2 font-bold text-xs transition-colors">
+                  <MessageCircle size={16} /> WhatsApp
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Why Choose Us Section */}
+      <div className="section-padding">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h3 className="text-xl md:text-3xl font-bold text-white uppercase tracking-tight">Why Choose <span className="gradient-text">Our Training?</span></h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: "Expert Trainers", desc: "Learn from industry pioneers with years of commercial success.", icon: Award },
+              { title: "Practical Knowledge", desc: "No fluff, only standard operating procedures that work.", icon: BookOpen },
+              { title: "Business Guidance", desc: "Expert tips on marketing, scaling, and ROI management.", icon: TrendingUp },
+              { title: "Training Support", desc: "Lifetime technical guidance even after course completion.", icon: ShieldCheck },
+            ].map((item, i) => (
+              <div key={i} className="glass p-8 rounded-3xl border border-white/5 text-center group hover:bg-white/5 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-6 text-primary-start group-hover:scale-110 transition-transform">
+                  <item.icon size={28} />
+                </div>
+                <h4 className="text-white font-bold text-lg mb-3">{item.title}</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Gallery Section */}
+      <div className="section-padding pt-0">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-xl md:text-3xl font-bold text-white mb-4 uppercase tracking-tight">Experience our <span className="gradient-text">Ecosystem</span></h3>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+            {galleryImages.map((img, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 }}
+                className="aspect-square rounded-2xl overflow-hidden glass border border-white/10"
+              >
+                <img loading="lazy" src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform hover:scale-110 duration-500" />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* SEO Content Section */}
+      <div className="section-padding bg-white/5">
+        <div className="max-w-4xl mx-auto px-4 prose prose-invert">
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-8 border-l-4 border-primary-start pl-6 uppercase tracking-tight">Start Your <span className="gradient-text">Mushroom Farming Journey</span> in India</h3>
+          <div className="text-slate-400 space-y-6 leading-relaxed text-sm md:text-base">
+            <p>
+              Looking for the best <span className="text-white font-bold">mushroom farming training in India</span>? At Organic Mushroom Farm, we provide the most comprehensive <span className="text-white font-bold">button mushroom training course</span> designed specifically for the Indian climate and market. Our modules cover everything from raw substrate preparation to precision climate control.
+            </p>
+            <p>
+              Our <span className="text-white font-bold">online mushroom farming training</span> is perfect for those who want to learn at their own pace. We cover technical aspects of milky mushroom and oyster mushroom growing as well, ensuring you have a diverse portfolio.
+            </p>
+            <p>
+              If you're wondering <span className="text-white font-bold">how to start mushroom farming business</span>, our training is the first step. We provide the blueprint for building an indoor mushroom farm that yields high-quality produce consistently. From students learning farming basics to established entrepreneurs scaling their units, our curriculum caters to all.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="section-padding">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-4 uppercase tracking-tight">Common <span className="gradient-text">Queries</span></h3>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <Collapsible key={i} title={faq.q}>
+                <p className="text-slate-400 leading-relaxed">{faq.a}</p>
+              </Collapsible>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const HomePage = () => {
   useEffect(() => {
@@ -1883,68 +2208,6 @@ const ServicesPage = () => {
   );
 };
 
-const TrainingPage = () => {
-  useEffect(() => {
-    document.title = "Training Programs | Master Mushroom Cultivation";
-  }, []);
-  return (
-    <div className="min-h-screen">
-      <PageHero 
-        badge="Skill Development"
-        title="Professional Training Programs" 
-        description="Master the science and art of mushroom farming with hands-on certification."
-      />
-      <ProductionSOP />
-      <section className="section-padding">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="mb-4 uppercase tracking-tight">Upcoming <span className="gradient-text">Workshops</span></h2>
-            <p className="text-slate-400">Join our next session and start your journey with expert guidance.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="glass p-10 rounded-[3rem] border border-white/10 relative overflow-hidden text-left">
-              <div className="absolute top-0 right-0 p-8 opacity-5">
-                <BookOpen size={120} />
-              </div>
-              <div className="badge mb-6">3-Day Intensive</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Button Mushroom Masterclass</h3>
-              <p className="text-slate-400 mb-8 font-medium">In-depth training on compost preparation, spawn run, and harvesting strategies.</p>
-              <ul className="space-y-4 mb-10">
-                {["Live Farm Sessions", "SOP Manuals", "ROI Calculation Tools", "Post-Training Support"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-slate-300 font-bold">
-                    <CheckCircle2 size={16} className="text-green-500" /> {item}
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className="btn-primary inline-flex px-8 py-4 rounded-xl font-bold">
-                Enroll Now
-              </Link>
-            </div>
-            <div className="glass p-10 rounded-[3rem] border border-white/10 relative overflow-hidden text-left">
-               <div className="absolute top-0 right-0 p-8 opacity-5">
-                <Users size={120} />
-              </div>
-              <div className="badge mb-6">Specialty Focused</div>
-              <h3 className="text-2xl font-bold text-white mb-4">Oyster & Milky Training</h3>
-              <p className="text-slate-400 mb-8 font-medium">Low-cost entry models perfect for small-scale entrepreneurs and hobbyists.</p>
-               <ul className="space-y-4 mb-10">
-                {["Substrate Treatment", "Low-Cost Setup", "Local Channel Sales", "Quality Assessment"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-slate-300 font-bold">
-                    <CheckCircle2 size={16} className="text-green-500" /> {item}
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className="btn-primary inline-flex px-8 py-4 rounded-xl font-bold">
-                Enroll Now
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
-
 const TurnkeyProjectsPage = () => {
   useEffect(() => {
     document.title = "Turnkey Projects | Commercial Farm Infrastructure Setup";
@@ -2153,6 +2416,7 @@ export default function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
 
