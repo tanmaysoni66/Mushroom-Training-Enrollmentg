@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm, ValidationError } from '@formspree/react';
 import { 
   Menu, X, Phone, Mail, Instagram, Facebook, Youtube, Send, 
@@ -2002,8 +2002,8 @@ const GalleryPage = () => {
     document.title = "Gallery | Modern Mushroom Farms & Infrastructure";
   }, []);
   const images = [
-    { src: "https://projectshelve.com/assets/images/products/1746695205Mushroom.jpg", category: "Infrastructure" },
-    { src: "Assets/Spawn.png", category: "Spawn" },
+    { src: "https://picsum.photos/seed/farm1/800/600", category: "Infrastructure" },
+    { src: "https://picsum.photos/seed/farm2/800/600", category: "Spawn" },
     { src: "https://picsum.photos/seed/farm3/800/600", category: "Training" },
     { src: "https://picsum.photos/seed/farm4/800/600", category: "Harvest" },
     { src: "https://picsum.photos/seed/farm5/800/600", category: "Infrastructure" },
