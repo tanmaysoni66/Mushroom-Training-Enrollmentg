@@ -1144,7 +1144,7 @@ const CTASection = () => {
 };
 
 const ContactPage = () => {
-  const [state, handleSubmit] = useForm('xykldqdy');
+  const [state, handleSubmit, reset] = useForm('xykldqdy');
 
   return (
     <div className="min-h-screen bg-black overflow-x-hidden pt-24 md:pt-32 pb-12">
@@ -1303,8 +1303,8 @@ const ContactPage = () => {
                animate={{ opacity: 1 }}
                exit={{ opacity: 0 }}
                className="absolute inset-0 bg-black/95 backdrop-blur-sm"
-               onClick={() => window.location.reload()}
-             ></motion.div>
+               onClick={reset}
+              ></motion.div>
              
              <motion.div 
                initial={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -1320,7 +1320,7 @@ const ContactPage = () => {
                   Thank you! Your enquiry has been received. Our expert will call you within <span className="text-white font-bold underline decoration-primary-start underline-offset-4">24 hours</span>.
                 </p>
                 <button 
-                  onClick={() => window.location.reload()}
+                  onClick={reset}
                   className="w-full py-4 rounded-xl bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-slate-200 transition-all shadow-xl"
                 >
                   Close
