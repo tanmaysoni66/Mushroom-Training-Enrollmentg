@@ -2003,7 +2003,7 @@ const GalleryPage = () => {
   }, []);
   const images = [
     { src: "https://projectshelve.com/assets/images/products/1746695205Mushroom.jpg", category: "Infrastructure" },
-    { src: "./assets/spawn.png", category: "Spawn" },
+    { src: "Assets/Spawn.png", category: "Spawn" },
     { src: "https://picsum.photos/seed/farm3/800/600", category: "Training" },
     { src: "https://picsum.photos/seed/farm4/800/600", category: "Harvest" },
     { src: "https://picsum.photos/seed/farm5/800/600", category: "Infrastructure" },
