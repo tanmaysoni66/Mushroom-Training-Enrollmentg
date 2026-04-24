@@ -729,9 +729,9 @@ const Navbar = () => {
 const Hero = () => {
   const features = [
     "Complete Turnkey Project Setup",
-    "Professional Training Programs",
+    "Training Programs",
     "Government Subsidy Documentation",
-    "Lifetime Technical Support"
+    "Technical Support"
   ];
 
   return (
@@ -988,7 +988,7 @@ const FarmingModels = () => {
     {
       name: "Starter Package",
       size: "18 x 30 ft",
-      investment: "₹8-12 Lakh",
+      investment: "₹2-12 Lakh",
       yield: "800-1000 kg/cycle",
       features: ["Small Scale", "Manual Ops", "Local Markets"],
       label: "Beginner Choice",
@@ -997,7 +997,7 @@ const FarmingModels = () => {
     {
       name: "Standard Model",
       size: "18 x 70 ft",
-      investment: "₹35-42 Lakh",
+      investment: "₹15-42 Lakh",
       yield: "3000-3500 kg/cycle",
       features: ["Automated Climate", "Export Ready", "High ROI"],
       label: "Most Popular",
@@ -1668,11 +1668,11 @@ const MushroomTraining = () => {
   ];
 
   const galleryImages = [
-    { src: "https://images.unsplash.com/photo-1591255421939-a0352ed08291?auto=format&fit=crop&q=80&w=800", alt: "Mushroom farming setup" },
-    { src: "https://images.unsplash.com/photo-1528733385394-4d4d10fcc864?auto=format&fit=crop&q=80&w=800", alt: "Training session" },
-    { src: "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=800", alt: "Students learning farming" },
-    { src: "https://images.unsplash.com/photo-1599307767316-776533da941c?auto=format&fit=crop&q=80&w=800", alt: "Button & Milky mushroom growth" },
-    { src: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=800", alt: "Indoor mushroom farm" },
+    { src: "training images/mushroomfarmingsetup.jpg", alt: "Mushroom farming setup" },
+    { src: "training images/trainingsession.jpg", alt: "Training session" },
+    { src: "training images/studentslearningfarming.jpg", alt: "Students learning farming" },
+    { src: "training images/mushroomgrowth.jpg", alt: "Mushroom growth" },
+    { src: "training images/indoormushroomfarm.jpg", alt: "Indoor mushroom farm" },
   ];
 
   return (
@@ -1985,9 +1985,9 @@ const HomePage = () => {
           <p className="max-w-xl mx-auto mb-12 font-medium">Connect directly with verified buyers and sellers.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left p-2">
             {[
-              { type: "Seller", title: "Fresh Milky Mushrooms", locale: "West Bengal", price: "₹140/kg" },
-              { type: "Buyer", title: "Oyster Spawn Needed", locale: "Madhya Pradesh", price: "Bulk Order" },
-              { type: "Seller", title: "Dry Button Mushrooms", locale: "Punjab", price: "₹850/kg" },
+              { type: "Seller", title: "Fresh Mushrooms", locale: "Pan India", price: "₹140/kg" },
+              { type: "Seller", title: "Mushroom Spawn (seed)", locale: "Pan India", price: "Bulk Order" },
+              { type: "Seller", title: "Dry Mushrooms", locale: "Pan India", price: "₹850/kg" },
             ].map((ad, i) => (
               <div key={i} className="glass p-5 rounded-2xl border border-white/5 relative group cursor-pointer">
                 <div className={`absolute top-4 right-4 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest ${ad.type === 'Seller' ? 'bg-blue-500/20 text-blue-400' : 'bg-orange-500/20 text-orange-400'}`}>
@@ -2069,7 +2069,7 @@ const HomePage = () => {
                       <div className="px-2 py-0.5 rounded bg-red-500/20 text-red-500 text-[8px] font-black uppercase">Video</div>
                     </div>
                     <div className="relative aspect-video rounded-2xl overflow-hidden mb-4 group cursor-pointer">
-                      <img loading="lazy" src="https://picsum.photos/seed/mushroom/800/450" alt="Training" className="w-full h-full object-cover opacity-60" />
+                      <img loading="lazy" src="training images/trainingmushroom.jpg" alt="Training" className="w-full h-full object-cover opacity-60" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center pl-1 shadow-2xl">
                           <Play size={20} fill="currentColor" />
@@ -2265,12 +2265,15 @@ const GalleryPage = () => {
     document.title = "Gallery | Modern Mushroom Farms & Infrastructure";
   }, []);
   const images = [
-    { src: "https://picsum.photos/seed/farm1/800/600", category: "Infrastructure" },
-    { src: "https://picsum.photos/seed/farm2/800/600", category: "Spawn" },
-    { src: "https://picsum.photos/seed/farm3/800/600", category: "Training" },
-    { src: "https://picsum.photos/seed/farm4/800/600", category: "Harvest" },
-    { src: "https://picsum.photos/seed/farm5/800/600", category: "Infrastructure" },
-    { src: "https://picsum.photos/seed/farm6/800/600", category: "Spawn" },
+    { src: "training images/infracture.jpg", category: "Infrastructure" },
+    { src: "gallery/alltypesmushroom.jpg", category: "All Types Mushroom" },
+    { src: "gallery/mushroomharvest.jpg", category: "Mushroom Harvesting" },
+    { src: "gallery/enoki.jpg", category: "Enoki" },
+    { src: "training images/spawn.jpg", category: "Spawn" },
+    { src: "training images/studentslearningfarming.jpg", category: "Training" },
+    { src: "training images/harvest.jpg", category: "Harvest" },
+    { src: "training images/infracture.jpg", category: "Infrastructure" },
+    { src: "training images/mushroomspawn.jpg", category: "Spawn" },
   ];
 
   return (
