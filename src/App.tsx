@@ -1145,6 +1145,12 @@ const CTASection = () => {
 
 const ContactPage = () => {
   const [state, handleSubmit, reset] = useForm('xykldqdy');
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    reset();
+    navigate('/');
+  };
 
   return (
     <div className="min-h-screen bg-black overflow-x-hidden pt-24 md:pt-32 pb-12">
@@ -1303,7 +1309,7 @@ const ContactPage = () => {
                animate={{ opacity: 1 }}
                exit={{ opacity: 0 }}
                className="absolute inset-0 bg-black/95 backdrop-blur-sm"
-               onClick={reset}
+               onClick={handleClose}
               ></motion.div>
              
              <motion.div 
@@ -1320,7 +1326,7 @@ const ContactPage = () => {
                   Thank you! Your enquiry has been received. Our expert will call you within <span className="text-white font-bold underline decoration-primary-start underline-offset-4">24 hours</span>.
                 </p>
                 <button 
-                  onClick={reset}
+                  onClick={handleClose}
                   className="w-full py-4 rounded-xl bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-slate-200 transition-all shadow-xl"
                 >
                   Close
