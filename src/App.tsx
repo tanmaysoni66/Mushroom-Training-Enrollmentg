@@ -425,11 +425,14 @@ const STATES = [
 
 const NAV_ITEMS = [
   { name: "Home", href: "/", isExternal: false, icon: Home },
-  { name: "Services", href: "/#services", isExternal: false, icon: Layers },
-  { name: "Resources", href: "/#resources", isExternal: false, icon: BookOpen },
-  { name: "Training", href: "/#training", isExternal: false, icon: Award },
-  { name: "Market", href: "/#market", isExternal: false, icon: ShoppingCart },
-  { name: "Contact", href: "/contact", isExternal: false, icon: MessageCircle }
+  { name: "About", href: "/about", isExternal: false, icon: Info },
+  { name: "Services", href: "/services", isExternal: false, icon: Layers },
+  { name: "Training", href: "/training", isExternal: false, icon: Award },
+  { name: "Turnkey Projects", href: "/turnkey-projects", isExternal: false, icon: ShieldCheck },
+  { name: "Gallery", href: "/gallery", isExternal: false, icon: ShoppingCart },
+  { name: "Blog", href: "/blog", isExternal: false, icon: BookOpen },
+  { name: "FAQ", href: "/faq", isExternal: false, icon: MessageCircle },
+  { name: "Contact", href: "/contact", isExternal: false, icon: Phone }
 ];
 
 // --- Components ---
@@ -472,6 +475,7 @@ const Background3D = () => (
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -492,27 +496,39 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[calc(100%-48px)] max-w-7xl z-50 glass py-3 md:py-4 px-4 md:px-10 transition-all duration-300 ${isScrolled ? 'shadow-2xl' : ''}`}>
+      <nav className={`fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[calc(100%-48px)] max-w-7xl z-50 glass py-3 md:py-4 px-4 md:px-10 transition-all duration-300 ${isScrolled ? 'shadow-2xl translate-y-[-2px]' : ''}`}>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 md:gap-3">
-            <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl gradient-bg flex items-center justify-center font-bold text-base md:text-lg text-white shadow-lg">
+          <Link to="/" className="flex items-center gap-2 md:gap-3 group">
+            <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl gradient-bg flex items-center justify-center font-bold text-base md:text-lg text-white shadow-lg group-hover:scale-110 transition-transform">
               O
             </div>
             <span className="text-lg md:text-xl font-bold tracking-tight text-white whitespace-nowrap">
               Organic <span className="gradient-text">Mushroom Farm</span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {NAV_ITEMS.map((item) => (
-              <div key={item.name} className="relative group">
-                <Link to={item.href} className="text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1">
-                  {item.name}
-                </Link>
-              </div>
-            ))}
-            <Link to="/contact" className="btn-primary px-7 py-2.5 rounded-xl text-sm shadow-xl shadow-brand-blue/20">
+          <div className="hidden lg:flex items-center gap-6">
+            {NAV_ITEMS.slice(0, -1).map((item) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <div key={item.name} className="relative">
+                  <Link 
+                    to={item.href} 
+                    className={`text-[13px] font-bold transition-all flex items-center gap-1.5 px-3 py-1.5 rounded-lg ${isActive ? 'text-white bg-white/5' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    {item.name}
+                  </Link>
+                  {isActive && (
+                    <motion.div 
+                      layoutId="nav-active"
+                      className="absolute -bottom-1 left-3 right-3 h-0.5 gradient-bg rounded-full"
+                    />
+                  )}
+                </div>
+              );
+            })}
+            <Link to="/contact" className="btn-primary px-7 py-2.5 rounded-xl text-sm shadow-xl shadow-brand-blue/20 font-bold">
               Join Workshop
             </Link>
           </div>
@@ -532,7 +548,6 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-[9998] lg:hidden">
-            {/* Background Dimming & Blur */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -541,19 +556,15 @@ const Navbar = () => {
               className="absolute inset-0 bg-black/60 backdrop-blur-md"
             />
 
-            {/* 3D Floating Side Panel */}
             <motion.div 
-              initial={{ x: '100%', rotateY: -15, opacity: 0 }}
-              animate={{ x: 0, rotateY: 0, opacity: 1 }}
-              exit={{ x: '100%', rotateY: -15, opacity: 0 }}
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="absolute right-0 top-0 h-full w-[85%] sm:w-[380px] bg-linear-to-b from-[#0f172a] via-[#10192e] to-[#020617] backdrop-blur-[20px] shadow-[-15px_0_50px_rgba(0,0,0,0.8)] rounded-l-[30px] border-l border-white/15 flex flex-col items-center overflow-hidden z-[9999]"
-              style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
             >
-              {/* Overlay Header with depth */}
               <div 
                 className="flex items-center justify-between p-7 w-full border-b border-white/5 bg-white/5 relative z-10"
-                style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center font-bold text-white shadow-lg">
@@ -565,20 +576,18 @@ const Navbar = () => {
                 </div>
                 <button 
                   onClick={() => setMobileMenuOpen(false)} 
-                  className="text-white p-2.5 bg-white/10 rounded-full hover:bg-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300"
+                  className="text-white p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-all duration-300"
                   aria-label="Close Menu"
                 >
                   <X size={24} />
                 </button>
               </div>
 
-              {/* Links Container with depth */}
               <div 
                 className="flex-1 w-full flex flex-col items-center justify-center gap-2 px-8 py-10 overflow-y-auto relative z-10"
-                style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}
               >
                 {NAV_ITEMS.map((item, i) => {
-                  const isActive = typeof window !== 'undefined' && (window.location.pathname === item.href || window.location.hash === item.href);
+                  const isActive = location.pathname === item.href;
                   return (
                     <motion.div 
                       key={item.name}
@@ -590,7 +599,7 @@ const Navbar = () => {
                       <Link 
                         to={item.href} 
                         onClick={() => setMobileMenuOpen(false)} 
-                        className={`flex items-center gap-5 text-lg font-bold transition-all py-4 px-6 w-full rounded-2xl group hover:scale-[1.05] hover:bg-white/5 hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] ${isActive ? 'bg-white/10 text-primary-start shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'text-slate-300 hover:text-white'}`}
+                        className={`flex items-center gap-5 text-lg font-bold transition-all py-4 px-6 w-full rounded-2xl group hover:scale-[1.02] hover:bg-white/5 ${isActive ? 'bg-white/10 text-primary-start shadow-[0_0_30px_rgba(56,189,248,0.25)]' : 'text-slate-300 hover:text-white'}`}
                       >
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isActive ? 'bg-primary-start text-white shadow-[0_0_15px_rgba(56,189,248,0.4)]' : 'bg-white/5 text-slate-500 group-hover:text-primary-start group-hover:bg-white/10'}`}>
                           {item.icon && <item.icon size={20} />}
@@ -600,23 +609,8 @@ const Navbar = () => {
                     </motion.div>
                   );
                 })}
-                
-                <motion.div 
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="flex flex-col gap-4 mt-10 w-full"
-                >
-                  <a href="tel:9203544140" className="btn-outline py-4 rounded-xl flex items-center justify-center gap-3 font-bold bg-white/5 border-white/10 hover:border-primary-start transition-all">
-                    <Phone size={18} /> 9203544140
-                  </a>
-                  <Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="btn-primary py-4 rounded-xl text-center font-bold shadow-[0_10px_30px_rgba(79,70,229,0.3)] hover:shadow-[0_15px_40px_rgba(79,70,229,0.5)] transition-all">
-                    Get Free Quote
-                  </Link>
-                </motion.div>
               </div>
 
-              {/* Bottom Decoration */}
               <div className="w-full p-8 border-t border-white/5 bg-white/[0.02] text-center">
                 <p className="text-[10px] uppercase font-black tracking-[0.3em] text-slate-500 animate-pulse">Organic Ecosystems</p>
               </div>
@@ -1364,7 +1358,7 @@ const StatesSection = () => {
 
 const Footer = () => {
   return (
-    <footer className="pt-20 pb-24 md:pb-12">
+    <footer className="pt-20 pb-24 md:pb-12 bg-black/50 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-10 mb-16">
           <div className="col-span-1 md:col-span-2">
@@ -1376,40 +1370,69 @@ const Footer = () => {
                 Organic <span className="gradient-text">Mushroom Farm</span>
               </span>
             </div>
-            <p className="text-slate-500 max-w-xs text-[13px] leading-relaxed mb-6">
-              Empowering high-yield organic cultivation across India with precision systems.
+            <p className="text-slate-500 max-w-sm text-[13px] leading-relaxed mb-6 font-medium">
+              Empowering high-yield organic mushroom cultivation across India through standardized SOPs, expert training, and industrial-grade turnkey projects.
             </p>
-            <div className="flex flex-wrap items-center gap-3 text-[8px] font-black text-slate-500 uppercase tracking-widest">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[8px] font-black text-slate-600 uppercase tracking-[0.3em]">
               {LOCATIONS.map((loc, i) => (
                 <span key={loc} className="flex items-center gap-2">
-                  {loc} {i !== LOCATIONS.length - 1 && <div className="w-0.5 h-0.5 rounded-full bg-white/10"></div>}
+                  {loc} {i !== LOCATIONS.length - 1 && <div className="w-1 h-1 rounded-full bg-white/10"></div>}
                 </span>
               ))}
             </div>
           </div>
           <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-[9px]">Resource</h4>
+            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-[9px] border-l-2 border-primary-start pl-3">Pages</h4>
             <ul className="space-y-3">
-              {["Training Modules", "Production SOPs", "ROI Calculator"].map(item => (
-                <li key={item}><a href="#" className="text-slate-500 hover:text-white transition-colors text-[13px]">{item}</a></li>
+              {[
+                { name: "About Us", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "Training", href: "/training" },
+                { name: "Turnkey Projects", href: "/turnkey-projects" },
+                { name: "Gallery", href: "/gallery" },
+              ].map(item => (
+                <li key={item.name}>
+                  <Link to={item.href} className="text-slate-500 hover:text-white transition-colors text-sm font-medium">{item.name}</Link>
+                </li>
               ))}
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-[9px]">Company</h4>
+            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-[9px] border-l-2 border-primary-start pl-3">Resources</h4>
             <ul className="space-y-3">
-              {["Privacy Policy", "Terms of Service", "Manuals"].map(item => (
-                <li key={item}><a href="#" className="text-slate-500 hover:text-white transition-colors text-[13px]">{item}</a></li>
+              {[
+                { name: "Blog / Insights", href: "/blog" },
+                { name: "FAQ", href: "/faq" },
+                { name: "Contact", href: "/contact" },
+                { name: "Terms of Service", href: "#" },
+                { name: "Privacy Policy", href: "#" },
+              ].map(item => (
+                <li key={item.name}>
+                  <Link to={item.href} className="text-slate-500 hover:text-white transition-colors text-sm font-medium">{item.name}</Link>
+                </li>
               ))}
             </ul>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-10 text-[9px] font-black uppercase tracking-widest text-slate-600">
-          <div>© 2024 Organic Mushroom Farm</div>
-          <div className="mt-4 md:mt-0 flex gap-6">
-            <a href="https://www.instagram.com/organic_mushroom_farm_jabalpur" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Insta</a>
-            <a href="https://www.facebook.com/organic.mushroom.farm0" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">FB</a>
-            <a href="https://www.youtube.com/@organicmushroomfarm" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">YT</a>
+        <div className="flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-10 text-[10px] font-bold uppercase tracking-widest text-slate-600">
+          <div className="mb-6 md:mb-0">© 2026 Organic Mushroom Farm. All Rights Reserved.</div>
+          <div className="flex gap-8">
+            {[
+              { label: "Insta", href: "https://www.instagram.com/organic_mushroom_farm_jabalpur" },
+              { label: "FB", href: "https://www.facebook.com/organic.mushroom.farm0" },
+              { label: "YT", href: "https://www.youtube.com/@organicmushroomfarm" },
+            ].map(social => (
+              <a 
+                key={social.label} 
+                href={social.href} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-primary-start transition-colors flex items-center gap-2 group"
+              >
+                {social.label}
+                <ArrowRight size={10} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all font-bold" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -1418,47 +1441,86 @@ const Footer = () => {
 };
 
 const FloatingButtons = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setShowScrollTop(window.scrollY > 400);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const mobileNavItems = [
+    { label: "Spawn (Seed)", href: "#market", icon: Sprout },
+    { label: "Training", href: "#sop", icon: BookOpen },
+    { label: "Setup (Turnkey)", href: "#farming-models", icon: Home },
+    { label: "Bags", href: "#compost-units", icon: Layers },
+    { label: "Fresh Mushroom", href: "#market", icon: ShoppingCart },
+    { label: "Call Us", href: "tel:+919203544140", icon: Phone },
+  ];
+
   return (
     <>
-      <div className="fixed bottom-28 right-6 z-[100] flex flex-col gap-4 hidden md:flex">
-        <a 
+      {/* Floating Buttons on Right Side */}
+      <div className="fixed bottom-24 right-4 md:right-8 z-[100] flex flex-col gap-4">
+        {/* WhatsApp Button with Glow & Pulse */}
+        <motion.a 
           href="https://wa.me/919203544140" 
-          className="w-16 h-16 rounded-full bg-green-500 text-white flex items-center justify-center shadow-[0_10px_40px_rgba(34,197,94,0.4)] hover:scale-110 active:scale-95 transition-all animate-bounce"
-          target="_blank" rel="noopener noreferrer"
+          target="_blank" 
+          rel="noopener noreferrer"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          whileHover={{ scale: 1.1 }}
+          className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-green-500 text-white flex items-center justify-center shadow-[0_0_30px_rgba(34,197,94,0.4)] relative group"
         >
-          <MessageCircle size={32} />
-        </a>
-        <a 
-          href="tel:9203544140" 
-          className="w-16 h-16 rounded-full btn-primary text-white flex items-center justify-center shadow-[0_10px_40px_rgba(79,70,229,0.4)] hover:scale-110 active:scale-95 transition-all"
+          <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20 group-hover:opacity-40"></div>
+          <MessageCircle size={28} className="relative z-10" />
+        </motion.a>
+
+        {/* Enquiry Button (Linking to /contact) */}
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.1 }}
         >
-          <Phone size={28} />
-        </a>
+          <Link 
+            to="/contact" 
+            className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-linear-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-xl hover:scale-110 transition-all border border-white/10"
+          >
+            <Mail size={24} />
+          </Link>
+        </motion.div>
+
+        {/* Scroll To Top (Desktop) */}
+        {showScrollTop && (
+          <motion.button 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="w-12 h-12 glass rounded-full text-slate-400 flex items-center justify-center hover:bg-white/10 transition-all hidden md:flex"
+          >
+            <ChevronUp size={20} />
+          </motion.button>
+        )}
       </div>
 
-      {/* Mobile Sticky Bar - Conversion Optimized */}
-      <div className="fixed bottom-0 left-0 right-0 z-[110] md:hidden glass-dark border-t border-white/15 p-4 grid grid-cols-2 gap-4 pb-[env(safe-area-inset-bottom,16px)]">
-        <a 
-          href="tel:+919203544140" 
-          className="bg-white/10 hover:bg-white/20 text-white min-h-[52px] rounded-2xl flex items-center justify-center gap-3 text-[13px] font-black uppercase tracking-widest border border-white/10 transition-all active:scale-95"
-        >
-          <Phone size={18} className="text-primary-start" /> Call Now
-        </a>
-        <a 
-          href="https://wa.me/919203544140" 
-          target="_blank" rel="noopener noreferrer"
-          className="btn-primary min-h-[52px] rounded-2xl flex items-center justify-center gap-3 text-[13px] font-black uppercase tracking-widest bg-green-600 border-none shadow-[0_10px_30px_rgba(34,197,94,0.3)] transition-all active:scale-95"
-        >
-          <MessageCircle size={18} /> WhatsApp
-        </a>
+      {/* Mobile Horizontal Sticky Bottom Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-[110] md:hidden glass-dark border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+        <div className="overflow-x-auto scrollbar-hide snap-x flex items-center gap-3 p-4">
+          {mobileNavItems.map((item, i) => (
+            <a 
+              key={i} 
+              href={item.href}
+              className="snap-start shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full bg-linear-to-r from-blue-600/20 to-purple-600/20 border border-white/10 hover:border-primary-start/50 transition-all active:scale-95"
+            >
+              <item.icon size={14} className="text-primary-start" />
+              <span className="text-[11px] font-bold text-white whitespace-nowrap tracking-tight">{item.label}</span>
+            </a>
+          ))}
+          <div className="shrink-0 w-4"></div> {/* Spacer for scroll end */}
+        </div>
+        {/* Safe area padding for iPhones */}
+        <div className="h-[env(safe-area-inset-bottom,0px)] bg-black/20"></div>
       </div>
-
-      <button 
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-28 left-6 w-12 h-12 glass rounded-2xl text-slate-400 z-[100] flex items-center justify-center md:flex hidden hover:bg-white/10 transition-all"
-      >
-        <ChevronUp size={24} />
-      </button>
     </>
   );
 };
@@ -1467,6 +1529,7 @@ const FloatingButtons = () => {
 
 const HomePage = () => {
   useEffect(() => {
+    document.title = "Organic Mushroom Farm - India's Premium Turnkey Solutions";
     const hash = window.location.hash;
     if (hash) {
       const element = document.querySelector(hash);
@@ -1699,9 +1762,376 @@ const HomePage = () => {
   );
 };
 
+const PageHero = ({ title, description, badge }: { title: string; description: string; badge?: string }) => (
+  <section className="pt-32 pb-16 md:pt-48 md:pb-24 relative overflow-hidden">
+    <div className="max-w-7xl mx-auto px-4 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        {badge && <div className="badge mx-auto mb-6">{badge}</div>}
+        <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+          {title.split(' ').map((word, i) => (
+            <React.Fragment key={i}>
+              {i === 1 ? <span className="gradient-text">{word} </span> : word + ' '}
+            </React.Fragment>
+          ))}
+        </h1>
+        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+          {description}
+        </p>
+      </motion.div>
+    </div>
+  </section>
+);
+
+const AboutPage = () => {
+  useEffect(() => {
+    document.title = "About Us | Organic Mushroom Farm - India's Leading Expert";
+  }, []);
+  return (
+    <div className="min-h-screen">
+      <PageHero 
+        badge="Our Story"
+        title="About Organic Mushroom Farm" 
+        description="India's leading mushroom ecosystem architect, bridging the gap between traditional farming and industrial precision."
+      />
+      <CompanyProfile />
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="mb-6 uppercase tracking-tight">Our <span className="gradient-text">Vision</span></h2>
+              <p className="text-slate-400 text-lg leading-relaxed mb-6">
+                To transform India into a global hub for organic mushroom production through sustainable practices and cutting-edge infrastructure.
+              </p>
+              <div className="space-y-4">
+                {["Empowering local farmers", "Eco-friendly production", "Technological innovation"].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle2 className="text-primary-start" size={20} />
+                    <span className="text-white font-bold">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="glass p-8 rounded-3xl border border-white/10">
+              <h3 className="text-white font-bold text-xl mb-4">Our Commitment</h3>
+              <p className="text-slate-500 mb-6 font-medium">
+                We don't just sell technology; we build partnerships. Every project we undertake is a step towards a greener, more profitable future for Indian agriculture.
+              </p>
+              <Link to="/contact" className="btn-primary w-full py-4 rounded-xl text-center font-bold">
+                Partner With Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const ServicesPage = () => {
+  useEffect(() => {
+    document.title = "Our Services | Turnkey Mushroom Farming Solutions";
+  }, []);
+  return (
+    <div className="min-h-screen">
+      <PageHero 
+        badge="Expert Solutions"
+        title="Our Comprehensive Services" 
+        description="Tailored infrastructure and support systems for the modern mushroom farmer."
+      />
+      <EcosystemFlow />
+      <section className="section-padding pt-0">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { title: "Hybrid Spawn Supply", desc: "Top-tier genetics for maximum yield and disease resistance.", icon: Sprout },
+              { title: "Compost Production", desc: "Standardized Phase II & Phase III compost for commercial success.", icon: Layers },
+              { title: "Technical Consultancy", desc: "Expert guidance from climate control to disease management.", icon: Info },
+              { title: "Marketing Support", desc: "Connecting farmers with B2B buyers and export channels.", icon: TrendingUp },
+              { title: "Cold Chain Logistics", desc: "Ensuring freshness from farm to market with specialized storage.", icon: Zap },
+              { title: "Subsidy Guidance", desc: "Legal and documentation support for government schemes.", icon: ShieldCheck },
+            ].map((s, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -10 }}
+                className="glass p-8 rounded-3xl border border-white/5 group hover:bg-white/5 transition-all"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-primary-start/10 text-primary-start flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <s.icon size={26} />
+                </div>
+                <h3 className="text-white font-bold text-xl mb-4">{s.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium">{s.desc}</p>
+                <Link to="/contact" className="text-primary-start font-bold text-xs uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
+                  Learn More <ArrowRight size={14} />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTASection />
+    </div>
+  );
+};
+
+const TrainingPage = () => {
+  useEffect(() => {
+    document.title = "Training Programs | Master Mushroom Cultivation";
+  }, []);
+  return (
+    <div className="min-h-screen">
+      <PageHero 
+        badge="Skill Development"
+        title="Professional Training Programs" 
+        description="Master the science and art of mushroom farming with hands-on certification."
+      />
+      <ProductionSOP />
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="mb-4 uppercase tracking-tight">Upcoming <span className="gradient-text">Workshops</span></h2>
+            <p className="text-slate-400">Join our next session and start your journey with expert guidance.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="glass p-10 rounded-[3rem] border border-white/10 relative overflow-hidden text-left">
+              <div className="absolute top-0 right-0 p-8 opacity-5">
+                <BookOpen size={120} />
+              </div>
+              <div className="badge mb-6">3-Day Intensive</div>
+              <h3 className="text-2xl font-bold text-white mb-4">Button Mushroom Masterclass</h3>
+              <p className="text-slate-400 mb-8 font-medium">In-depth training on compost preparation, spawn run, and harvesting strategies.</p>
+              <ul className="space-y-4 mb-10">
+                {["Live Farm Sessions", "SOP Manuals", "ROI Calculation Tools", "Post-Training Support"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm text-slate-300 font-bold">
+                    <CheckCircle2 size={16} className="text-green-500" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <Link to="/contact" className="btn-primary inline-flex px-8 py-4 rounded-xl font-bold">
+                Enroll Now
+              </Link>
+            </div>
+            <div className="glass p-10 rounded-[3rem] border border-white/10 relative overflow-hidden text-left">
+               <div className="absolute top-0 right-0 p-8 opacity-5">
+                <Users size={120} />
+              </div>
+              <div className="badge mb-6">Specialty Focused</div>
+              <h3 className="text-2xl font-bold text-white mb-4">Oyster & Milky Training</h3>
+              <p className="text-slate-400 mb-8 font-medium">Low-cost entry models perfect for small-scale entrepreneurs and hobbyists.</p>
+               <ul className="space-y-4 mb-10">
+                {["Substrate Treatment", "Low-Cost Setup", "Local Channel Sales", "Quality Assessment"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm text-slate-300 font-bold">
+                    <CheckCircle2 size={16} className="text-green-500" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <Link to="/contact" className="btn-primary inline-flex px-8 py-4 rounded-xl font-bold">
+                Enroll Now
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const TurnkeyProjectsPage = () => {
+  useEffect(() => {
+    document.title = "Turnkey Projects | Commercial Farm Infrastructure Setup";
+  }, []);
+  return (
+    <div className="min-h-screen">
+      <PageHero 
+        badge="Turnkey Solutions"
+        title="Commercial Farm Infrastructure" 
+        description="Ready-to-harvest mushroom units designed for high-yield precision."
+      />
+      <CriticalParameters />
+      <WhyChooseUs />
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="mb-4 uppercase tracking-tight">Our <span className="gradient-text">Farming Models</span></h2>
+            <p className="text-slate-400">Scale your production with our proven structural designs.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { title: "Standard Unit", cap: "10-15 tons/yr", investment: "₹15-20 Lakhs", icon: Home },
+              { title: "Industrial Unit", cap: "50+ tons/yr", investment: "₹60-80 Lakhs", icon: Layers },
+              { title: "Export Factory", cap: "200+ tons/yr", investment: "₹2 Cr+", icon: ShieldCheck },
+            ].map((model, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ scale: 1.05 }}
+                className="glass p-8 rounded-[2.5rem] border border-white/5 text-center group"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-start group-hover:text-white transition-all">
+                  <model.icon size={28} />
+                </div>
+                <h3 className="text-white font-bold text-xl mb-2">{model.title}</h3>
+                <div className="text-primary-start font-black text-xs uppercase tracking-widest mb-6">Capacity: {model.cap}</div>
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/5 mb-8">
+                  <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Est. Investment</div>
+                  <div className="text-lg font-bold text-white">{model.investment}</div>
+                </div>
+                <Link to="/contact" className="btn-outline w-full py-3 rounded-xl text-xs font-bold uppercase tracking-widest">
+                  Enquire Details
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTASection />
+    </div>
+  );
+};
+
+const GalleryPage = () => {
+  useEffect(() => {
+    document.title = "Gallery | Modern Mushroom Farms & Infrastructure";
+  }, []);
+  const images = [
+    { src: "https://picsum.photos/seed/farm1/800/600", category: "Infrastructure" },
+    { src: "https://picsum.photos/seed/farm2/800/600", category: "Spawn" },
+    { src: "https://picsum.photos/seed/farm3/800/600", category: "Training" },
+    { src: "https://picsum.photos/seed/farm4/800/600", category: "Harvest" },
+    { src: "https://picsum.photos/seed/farm5/800/600", category: "Infrastructure" },
+    { src: "https://picsum.photos/seed/farm6/800/600", category: "Spawn" },
+  ];
+
+  return (
+    <div className="min-h-screen">
+      <PageHero 
+        badge="Ecosystem Tour"
+        title="Visualizing Success" 
+        description="A glimpse into our farms, training sessions, and high-quality produce."
+      />
+      <section className="section-padding pt-0">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {images.map((img, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative aspect-[4/3] rounded-3xl overflow-hidden glass border border-white/10"
+              >
+                <img loading="lazy" src={img.src} alt={img.category} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute bottom-6 left-6">
+                    <span className="badge text-[10px]">{img.category}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTASection />
+    </div>
+  );
+};
+
+const BlogPage = () => {
+  useEffect(() => {
+    document.title = "Blog & Insights | Mushroom Farming Knowledge Hub";
+  }, []);
+  const posts = [
+    { title: "The Future of Mushroom Farming in India 2026", date: "April 20, 2026", excerpt: "Exploring new market trends and export opportunities for Indian mushroom growers.", icon: TrendingUp },
+    { title: "Standardizing SOPs for High-Yield Button Mushrooms", date: "April 15, 2026", excerpt: "A deep dive into climate control and substrate management for industrial units.", icon: ShieldCheck },
+    { title: "Starting Small: Oyster Mushroom Units for Households", date: "April 10, 2026", excerpt: "How to launch a profitable small unit with minimal investment.", icon: Sprout },
+  ];
+
+  return (
+    <div className="min-h-screen">
+      <PageHero 
+        badge="Knowledge Hub"
+        title="Latest Insights & Guides" 
+        description="Industry updates, technical guides, and success stories from the field."
+      />
+      <section className="section-padding pt-0">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-3 gap-8">
+            {posts.map((post, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -10 }}
+                className="glass p-8 rounded-[2.5rem] border border-white/5 flex flex-col h-full"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                   <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-primary-start">
+                    <post.icon size={22} />
+                  </div>
+                  <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{post.date}</div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4 leading-tight">{post.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
+                <button className="text-primary-start font-bold text-xs uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
+                  Read Article <ArrowRight size={14} />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTASection />
+    </div>
+  );
+};
+
+const FAQPage = () => {
+  useEffect(() => {
+    document.title = "FAQ | Mushroom Project Common Doubts Cleared";
+  }, []);
+  const faqs = [
+    { q: "What is the minimum investment required?", a: "For a small Oyster mushroom unit, it starts from ₹2-3 Lakhs. Commercial button mushroom units require ₹15 Lakhs or more depending on scale." },
+    { q: "Do you provide marketing support?", a: "Yes, we connect our project partners with B2B buyers and provide market linkage support across India." },
+    { q: "How long is the training program?", a: "Our intensive workshops typically run for 3 days, followed by lifetime technical support via video and site visits." },
+    { q: "Can I get a government subsidy?", a: "Yes, mushroom units qualify for up to 40-50% subsidy under NHB and state-level schemes. We assist with all paperwork." },
+    { q: "What is the typical ROI?", a: "With standardized SOPs and proper management, ROI ranges from 70% to 120% annually." },
+  ];
+
+  return (
+    <div className="min-h-screen">
+      <PageHero 
+        badge="Direct Answers"
+        title="Frequently Asked Questions" 
+        description="Clarifying your doubts about project setups, training, and yields."
+      />
+      <section className="section-padding pt-0 pb-32">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <Collapsible key={i} title={faq.q}>
+                <p className="text-slate-400 leading-relaxed">{faq.a}</p>
+              </Collapsible>
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTASection />
+    </div>
+  );
+};
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="selection:bg-primary-start/30 selection:text-white bg-black">
         <Background3D />
         <Navbar />
@@ -1709,6 +2139,13 @@ export default function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/training" element={<TrainingPage />} />
+            <Route path="/turnkey-projects" element={<TurnkeyProjectsPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/faq" element={<FAQPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
