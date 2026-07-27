@@ -1,48 +1,1573 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- ✅ Intercept and sanitize cross-origin "Script error." telemetry issues from blocked tracking/advertising scripts in development iframe -->
+    <script>
+      window.addEventListener('error', function(e) {
+        if (e.message === 'Script error.' || (e.filename && !e.filename.includes(window.location.host))) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+        }
+      }, true);
+    </script>
+    <!-- ✅ Ahrefs Verification -->
+    <meta name="ahrefs-site-verification" content="d48267d7b8ee00a28f8051d5992c2cfd9373b8971e22a50f65b1829eae808130">
+
+    <!-- ✅ Charset FIRST (before everything) -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Organic Mushroom Farm - Premium Turnkey Farming & Training Ecosystem</title>
-    <meta name="description" content="Organic Mushroom Farm is India's leading mushroom project consultant. Turnkey grow rooms, industrial compost units, professional training, and production SOPs. Serving Jabalpur, Sagar, Indore, and more." />
-    <meta name="keywords" content="Organic Mushroom Farm, mushroom farming, mushroom training India, button mushroom project, mushroom compost unit, agriculture business India, mushroom cultivation" />
+    <!-- ✅ Title (Optimized for All India & Global SEO) -->
+    <title>Organic Mushrooms Farm | Spawn, Training & Setup - India & Global</title>
+    <!-- ✅ Preconnect and Preload Google Web Fonts for optimal performance without visual shifts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" />
+    </noscript>
+
+    <!-- ✅ Google Tag Manager (SINGLE - Remove duplicates) -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T6PD72F4');</script>
+
+    <!-- ✅ Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQ7XCLKDW6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DQ7XCLKDW6');
+      gtag('config', 'AW-11268929095');
+    </script>
+
+
+
+    <!-- ✅ Meta Pixel Code (Optimized & Non-Blocking) -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '925374987123460');
+    fbq('track', 'PageView');
+
+    // Defer loading of heavy third-party Meta Pixel fbevents.js script to improve mobile PageSpeed
+    (function() {
+      var scriptLoaded = false;
+      function loadDeferredScripts() {
+        if (scriptLoaded) return;
+        scriptLoaded = true;
+
+        var t = document.createElement('script');
+        t.async = true;
+        t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        var s = document.getElementsByTagName('script')[0];
+        if (s && s.parentNode) {
+          s.parentNode.insertBefore(t, s);
+        } else {
+          document.head.appendChild(t);
+        }
+
+        cleanupListeners();
+      }
+
+      function cleanupListeners() {
+        window.removeEventListener('scroll', loadDeferredScripts);
+        window.removeEventListener('mousemove', loadDeferredScripts);
+        window.removeEventListener('touchstart', loadDeferredScripts);
+        window.removeEventListener('click', loadDeferredScripts);
+        window.removeEventListener('keydown', loadDeferredScripts);
+      }
+
+      // Safe load: 2.5s after load event, or immediate upon any user interaction
+      window.addEventListener('load', function() {
+        setTimeout(loadDeferredScripts, 2500);
+      });
+
+      window.addEventListener('scroll', loadDeferredScripts, { passive: true });
+      window.addEventListener('mousemove', loadDeferredScripts, { passive: true });
+      window.addEventListener('touchstart', loadDeferredScripts, { passive: true });
+      window.addEventListener('click', loadDeferredScripts, { passive: true });
+      window.addEventListener('keydown', loadDeferredScripts, { passive: true });
+    })();
+    </script>
+    <!-- End Meta Pixel Code -->
+
+
+
+    <!-- ✅ Ahrefs Analytics Code -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="1AeC4dCToDOOlFFul5svgA" async></script>
+    <meta name="ahrefs-site-verification" content="d48267d7b8ee00a28f8051d5992c2cfd9373b8971e22a50f65b1829eae808130">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="Organic Mushroom Farm - Premium Farming Ecosystem" />
-    <meta property="og:description" content="Build your mushroom empire with India's #1 project experts. Turnkey infrastructure and professional training." />
+    <!-- ✅ Google Search Console Verification (SINGLE - Remove duplicate) -->
+    <meta name="google-site-verification" content="520546c7ef1f49ea" />
+    <meta name="google-site-verification" content="T08GKq12QZ4luzcstvFZsBt2z44RJf3TL5TSuWnUS_Q" />
+    <meta name="google-site-verification" content="Ca2ApiBcsYgNBj1_2r78MpVoymOH90MvqxDh1dMDVPY" />
+
+    <!-- ✅ Bing Webmaster Verification -->
+    <meta name="msvalidate.01" content="C2D1783AC6AE837F8BE7F263E322C2B8" />
+
+    <!-- ✅ SEO Meta Tags -->
+    <meta name="description" content="Buy  mushroom spawn, join mushroom farming training online/offline, get fresh & dry mushrooms delivered Pan India. Complete turnkey farm setup available. Based in Jabalpur, Madhya Pradesh." />
+    <meta name="keywords" content="mushroom spawn India, mushroom farming training, mushroom cultivation training, dry mushroom wholesale, fresh mushroom supplier, mushroom farm setup, mushroom training Jabalpur, mushroom training MP, button mushroom farming, oyster mushroom farming, milky mushroom farming, shiitake mushroom, reishi mushroom, lion's mane mushroom, mushroom farming business India, organic mushrooms farm, buy mushroom spawn online, commercial mushroom farming, mushroom farming course, mushroom bulk supply India" />
+    <meta name="author" content="Organic Mushrooms Farm" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="rating" content="general" />
+    <meta name="language" content="English" />
+    <meta name="category" content="Agriculture, Mushroom Farming, Organic Food" />
+
+    <!-- ✅ Location Targeting (Cleaned up) -->
+    <meta name="geo.region" content="IN-MP" />
+    <meta name="geo.placename" content="Pan India - Madhya Pradesh, Delhi, Maharashtra, Karnataka, Tamil Nadu, Telangana, Gujarat, Rajasthan, Uttar Pradesh, Bihar, West Bengal, Punjab, Haryana, Kerala, Andhra Pradesh, Odisha, Chhattisgarh, Jharkhand, Uttarakhand, Himachal Pradesh, Assam, Goa, Jammu and Kashmir, Ladakh, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura, Arunachal Pradesh, Chandigarh, Puducherry, Lakshadweep, Andaman and Nicobar Islands, Dadra and Nagar Haveli, Daman and Diu" />
+    <meta name="geo.position" content="23.1815;79.9864" />
+    <meta name="ICBM" content="23.1815, 79.9864" />
+
+    <!-- ✅ Canonical -->
+    <link rel="canonical" href="https://organicmushroomsfarm.com/" />
+
+    <!-- ✅ Open Graph (WhatsApp / Facebook / LinkedIn) -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mushroomtraining.online" />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍄</text></svg>">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content="Organic Mushrooms Farm" />
+    <meta property="og:title" content="Organic Mushrooms Farm | Spawn · Training · Setup · Fresh & Dry Mushroom Pan India" />
+    <meta property="og:description" content="India's trusted mushroom ecosystem — buy high-yield spawn, expert training, turnkey farm setup, fresh & dry mushrooms in bulk or retail. All varieties. Pan-India delivery." />
+    <meta property="og:url" content="https://organicmushroomsfarm.com/" />
+    <meta property="og:image" content="https://res.cloudinary.com/dtpktdkqw/image/upload/v1782269097/IMG_1329_optimized_30_c6qtnw.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Organic Mushrooms Farm" />
+
+    <!-- ✅ Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@OrganicMushroomFarm" />
+    <meta name="twitter:creator" content="@OrganicMushroomFarm" />
+    <meta name="twitter:title" content="Organic Mushrooms Farm | Spawn · Training · Setup · Pan India" />
+    <meta name="twitter:description" content="Premium mushroom spawn, expert training & turnkey farm setup. Fresh & dry mushrooms bulk/retail. Pan-India delivery." />
+    <meta name="twitter:image" content="https://res.cloudinary.com/dtpktdkqw/image/upload/v1782269097/IMG_1329_optimized_30_c6qtnw.png" />
+    <meta name="twitter:image:alt" content="Organic Mushrooms Farm" />
+
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dtpktdkqw/image/upload/w_32,h_32/v1782269097/IMG_1329_optimized_30_c6qtnw.png" />
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dtpktdkqw/image/upload/w_180,h_180/v1782269097/IMG_1329_optimized_30_c6qtnw.png" />
+
+        <!-- ✅ Hardcoded schema disabled to allow dynamic React SEO schemas to handle all pages without duplication -->
+    <script type="application/json-disabled">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "Organic Mushroom Farm",
-      "image": "https://picsum.photos/seed/mushroom/800/600",
-      "telephone": "9203544140",
-      "email": "support@mushroomtraining.online",
+      "@id": "https://organicmushroomsfarm.com/#business",
+      "name": "Organic Mushrooms Farm",
+      "legalName": "Agrimotion Engineering Private Limited",
+      "alternateName": [
+        "Organic Mushrooms Farm India",
+        "organicmushroomsfarm.com"
+      ],
+      "description": "India's leading mushroom project setup company providing turnkey solutions for button mushroom farming, training, and spawn supply.",
+      "url": "https://organicmushroomsfarm.com/",
+      "telephone": "+919203544140",
+      "email": "contact@organicmushroomsfarm.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://organicmushroomsfarm.com/logo.png",
+        "width": 1200,
+        "height": 630
+      },
+      "image": "https://organicmushroomsfarm.com/images/farm-logo.jpg",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Main Naka Katangi",
         "addressLocality": "Jabalpur",
         "addressRegion": "Madhya Pradesh",
+        "postalCode": "483105",
         "addressCountry": "IN"
       },
-      "url": "https://mushroomtraining.online",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 23.1815,
+        "longitude": 79.9864
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "India"
+        },
+        {
+          "@type": "Country",
+          "name": "United Arab Emirates"
+        },
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        },
+        {
+          "@type": "Country",
+          "name": "Canada"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Mushroom Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mushroom Training"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mushroom Spawn Seeds"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mushroom Infrastructure Setup"
+            }
+          }
+        ]
+      },
       "sameAs": [
-        "https://www.instagram.com/organic_mushroom_farm_jabalpur",
-        "https://www.facebook.com/organic.mushroom.farm0",
-        "https://www.youtube.com/@organicmushroomfarm"
+        "https://www.organicmushroomsfarm.com"
+      ],
+      "priceRange": "₹500 - ₹50000",
+      "servesCuisine": "Organic Mushrooms & Farming Supplies",
+      "currenciesAccepted": "INR, USD, GBP, AED",
+      "paymentAccepted": "Cash, Credit Card, Debit Card, UPI, Bank Transfer",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "09:00",
+        "closes": "20:00"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://organicmushroomsfarm.com/#organization",
+      "name": "Organic Mushrooms Farm",
+      "url": "https://organicmushroomsfarm.com/",
+      "logo": "https://organicmushroomsfarm.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+919203544140",
+        "contactType": "customer service",
+        "areaServed": "IN",
+        "availableLanguage": [
+          "Hindi",
+          "English"
+        ]
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://organicmushroomsfarm.com/#itemlist",
+      "name": "Mushroom Products & Courses",
+      "url": "https://organicmushroomsfarm.com/",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Product",
+            "name": "Oyster Mushroom Spawn",
+            "description": "Premium quality Oyster Mushroom Spawn from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/oyster-spawn.jpg",
+            "url": "https://organicmushroomsfarm.com/product/oyster-spawn",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "500.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/oyster-spawn",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Product",
+            "name": "Button Mushroom Spawn",
+            "description": "Premium quality Button Mushroom Spawn from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/button-spawn.jpg",
+            "url": "https://organicmushroomsfarm.com/product/button-spawn",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "800.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/button-spawn",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Product",
+            "name": "Milky Mushroom Spawn",
+            "description": "Premium quality Milky Mushroom Spawn from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/milky-spawn.jpg",
+            "url": "https://organicmushroomsfarm.com/product/milky-spawn",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "600.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/milky-spawn",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Product",
+            "name": "Shiitake Mushroom Spawn",
+            "description": "Premium quality Shiitake Mushroom Spawn from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/shiitake-spawn.jpg",
+            "url": "https://organicmushroomsfarm.com/product/shiitake-spawn",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "1200.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/shiitake-spawn",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Product",
+            "name": "Reishi / Ganoderma Mushroom Spawn",
+            "description": "Premium quality Reishi / Ganoderma Mushroom Spawn from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/reishi-spawn.jpg",
+            "url": "https://organicmushroomsfarm.com/product/reishi-spawn",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "1500.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/reishi-spawn",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "Product",
+            "name": "Lion's Mane Mushroom Spawn",
+            "description": "Premium quality Lion's Mane Mushroom Spawn from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/lions-mane-spawn.jpg",
+            "url": "https://organicmushroomsfarm.com/product/lions-mane-spawn",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "1400.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/lions-mane-spawn",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "Product",
+            "name": "Cordyceps Militaris Spawn",
+            "description": "Premium quality Cordyceps Militaris Spawn from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/cordyceps-spawn.jpg",
+            "url": "https://organicmushroomsfarm.com/product/cordyceps-spawn",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "2000.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/cordyceps-spawn",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "item": {
+            "@type": "Product",
+            "name": "Fresh Oyster Mushroom",
+            "description": "Premium quality Fresh Oyster Mushroom from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/fresh-oyster.jpg",
+            "url": "https://organicmushroomsfarm.com/product/fresh-oyster",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "200.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/fresh-oyster",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "Product",
+            "name": "Dry Shiitake Mushroom",
+            "description": "Premium quality Dry Shiitake Mushroom from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/dry-shiitake.jpg",
+            "url": "https://organicmushroomsfarm.com/product/dry-shiitake",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "1800.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/dry-shiitake",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "item": {
+            "@type": "Product",
+            "name": "Dry Reishi Mushroom",
+            "description": "Premium quality Dry Reishi Mushroom from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/dry-reishi.jpg",
+            "url": "https://organicmushroomsfarm.com/product/dry-reishi",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "2500.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/dry-reishi",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "item": {
+            "@type": "Product",
+            "name": "Dry Oyster Mushroom",
+            "description": "Premium quality Dry Oyster Mushroom from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/dry-oyster.jpg",
+            "url": "https://organicmushroomsfarm.com/product/dry-oyster",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "1000.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/dry-oyster",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "item": {
+            "@type": "Product",
+            "name": "Dry Lion's Mane Mushroom",
+            "description": "Premium quality Dry Lion's Mane Mushroom from Organic Mushrooms Farm.",
+            "image": "https://organicmushroomsfarm.com/images/dry-lions-mane.jpg",
+            "url": "https://organicmushroomsfarm.com/product/dry-lions-mane",
+            "brand": {
+              "@type": "Brand",
+              "name": "Organic Mushrooms Farm"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "25"
+            },
+            "review": {
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": "Verified Customer"
+              }
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "3000.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Organic Mushrooms Farm"
+              },
+              "url": "https://organicmushroomsfarm.com/product/dry-lions-mane",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "100.00",
+                  "currency": "INR"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "IN"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "unitCode": "d"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 3,
+                    "maxValue": 7,
+                    "unitCode": "d"
+                  }
+                }
+              },
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "IN",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "item": {
+            "@type": "Course",
+            "name": "Oyster Mushroom Cultivation Training",
+            "description": "Oyster Mushroom Cultivation Training - Professional mushroom farming training online and offline.",
+            "url": "https://organicmushroomsfarm.com/courses/oyster",
+            "provider": {
+              "@type": "Organization",
+              "name": "Organic Mushrooms Farm",
+              "url": "https://organicmushroomsfarm.com/"
+            },
+            "inLanguage": [
+              "hi",
+              "en"
+            ],
+            "courseMode": [
+              "online",
+              "offline"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "1999.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "url": "https://organicmushroomsfarm.com/courses/oyster"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "item": {
+            "@type": "Course",
+            "name": "Button Mushroom Cultivation Training",
+            "description": "Button Mushroom Cultivation Training - Professional mushroom farming training online and offline.",
+            "url": "https://organicmushroomsfarm.com/courses/button",
+            "provider": {
+              "@type": "Organization",
+              "name": "Organic Mushrooms Farm",
+              "url": "https://organicmushroomsfarm.com/"
+            },
+            "inLanguage": [
+              "hi",
+              "en"
+            ],
+            "courseMode": [
+              "online",
+              "offline"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "4999.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "url": "https://organicmushroomsfarm.com/courses/button"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "item": {
+            "@type": "Course",
+            "name": "All Varieties Mushroom Farming Course",
+            "description": "All Varieties Mushroom Farming Course - Professional mushroom farming training online and offline.",
+            "url": "https://organicmushroomsfarm.com/courses/all-varieties",
+            "provider": {
+              "@type": "Organization",
+              "name": "Organic Mushrooms Farm",
+              "url": "https://organicmushroomsfarm.com/"
+            },
+            "inLanguage": [
+              "hi",
+              "en"
+            ],
+            "courseMode": [
+              "online",
+              "offline"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "9999.00",
+              "priceCurrency": "INR",
+              "availability": "https://schema.org/InStock",
+              "url": "https://organicmushroomsfarm.com/courses/all-varieties"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://organicmushroomsfarm.com/#service",
+      "name": "Mushroom Farm Setup Service",
+      "serviceType": "Mushroom Farm Turnkey Setup",
+      "description": "Complete turnkey mushroom farm setup service.",
+      "provider": {
+        "@id": "https://organicmushroomsfarm.com/#business"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "INR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://organicmushroomsfarm.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://organicmushroomsfarm.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://organicmushroomsfarm.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mushroom Spawn",
+          "item": "https://organicmushroomsfarm.com/spawn"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Training",
+          "item": "https://organicmushroomsfarm.com/training"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Fresh & Dry Mushrooms",
+          "item": "https://organicmushroomsfarm.com/mushrooms"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://organicmushroomsfarm.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the duration of this commercial mushroom farming training course?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our online mushroom training course offers lifetime on-demand access to premium step-by-step video modules, allowing you to learn at your personal speed. For offline physical training at our central farm in Jabalpur (Madhya Pradesh), we conduct intensive 2 to 3-day practical commercial sessions covering commercial bulk composting, spawning, and harvesting hands-on."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need prior agricultural experience to join your mushroom cultivation course?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No prior experience in agriculture is required at all! This mushroom cultivation training is developed and designed structurally from scratch for absolute beginners. We cover basic biology, room preparation, substrate sterilization, hygienic standards, temperature monitoring, and commercial packaging, guiding you step-by-step."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there any certificate provided upon completion of the training?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, absolutely. Once you complete our commercial training modules, you will receive our professional, certified mushroom cultivation training credential. This certificate helps you secure agricultural loans, pitch to retail store chains, and satisfy safety compliance procedures for your company startup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I locate certified mushroom training near me in my state?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Whether you seek mushroom training in Madhya Pradesh, Uttar Pradesh, Delhi, Maharashtra, or Rajasthan, you can easily access our high-value online training portal globally. For those looking for practical mushroom growing training nearby, our offline practical academy offers masterclasses that students from all across India visit monthly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the hot state-wise opportunities for mushroom training in Madhya Pradesh and Uttar Pradesh?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Madhya Pradesh and Uttar Pradesh are top tier regions for mushroom cultivation due to high local availability of wheat straw, which reduces raw composting costs. In Bihar, Haryana, and Punjab, students can start with relatively simple semi-closed setups and ramp up to automated commercial climate-controlled farms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I truly start a premium commercial mushroom business with low investment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, organic oyster and milky varieties make for a solid low investment farming business setup. Beginners can launch their first crop in a simple insulated room or temporary bamboo structure with an investment of ₹10,000 to ₹15,000. For large industrial button mushrooms, our clients scale up to modern pasteurization tunnels and climate-insulated growth sections."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a government subsidy available for a mushroom cultivation business setup globally/in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, several states offer rich subsidies of up to 40% to 50% under National Horticulture Board (NHB) and Rashtriya Krishi Vikas Yojana (RKVY) schemes. Our comprehensive mushroom business training guides you through preparing your project report and technical documentation needed to secure state subsidies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the core differences between online and offline practical training?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Online mushroom training gives you flexible lifetime access to HD videos, charts, SOP templates, and technical forums at an extremely nominal cost. Offline practical training takes place at our high-yield farm, offering hands-on compost heap turning, inoculation (spawning) practice, casing formulation, and real-time environment sensor training."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What key mushroom types are covered in this crop cultivation syllabus?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our certified mushroom cultivation training covers White Button Mushrooms (commercial composting focus), Oyster Mushrooms (beginner-friendly substrate hydration), Milky Mushrooms (high-temperature tolerance), and specialty medicinal/decorative strains like Ganoderma."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I source pure quality first-generation mushroom spawn (seed) pan India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We manufacture high-grade F1 laboratory-tested hybrid spawn in-house and supply them safely in thermal boxes to farmers in Uttar Pradesh, Delhi, Bihar, West Bengal, Maharashtra, Rajasthan, Karnataka, and beyond. We guarantee high mycelium colonization rates and contamination-free deliveries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you assist with commercial business registration, licenses, and marketing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Part of our professional agriculture business training India roadmap includes training on FSSAI food licensing, local MSME registration, packaging guidelines, branding, and establishing direct global and domestic B2B links with leading supermarket chains and dried export traders."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is commercial button mushroom cultivation more profitable than oyster?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Commercial button mushrooms enjoy persistent high-volume demand in hotels, restaurant kitchens, and supermarkets, making them highly profitable at scale. Oyster mushrooms are simpler to grow with lower operating costs, offering higher profit margins on local retail sales with minimal risk."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What temperature and climate controls are required for high-yield commercial cultivation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "White button mushrooms require 22°C - 25°C for the early spawn run (mycelium growth) and 14°C - 18°C with high relative humidity (85%-90%) and fresh air exchange for maximum pinning. We teach you how to build cost-effective automated climate growth chambers during our program."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What post-training support do you offer to students when they launch their farm?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our students gain exclusive access to our VIP WhatsApp support channel, direct telephone consultation with master agriculturalists, commercial product marketing support, bulk spawn discounts, and diagnostic troubleshooting assistance for any mycelium growth issues."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can agricultural beginners start successfully in Rajasthan, Haryana, and Punjab?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In arid regions like Rajasthan, indoor farming protects crops from intense heat waves. In Haryana and Punjab, abundant wheat straw compost material offers high cost optimization potentials. Our tailored plans optimize water use and energy efficiency based on local regional logistics."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is high-quality compost referred to as the heart of professional button mushroom training?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Button mushrooms can only feed on complex, pasteurized chemical blocks of composted straw, gypsum, and urea. Our course provides the exact proportions to complete compost fermentation safely, eliminating wild molds and maximizing organic matter intake."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the major b2b market linkages available after completing agriculture business training in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We connect our trained network with dry mushroom exporters, local wholesale Mandis, retail supermarkets, pharmaceuticals buying medicinal Ganoderma, and local agri-cooperatives. We also train you in sun-drying or cold-dehydrating techniques to preserve surplus crops safely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the quality of spawn (seed) impact overall yield?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Low-quality, aged, or contaminated seeds can lead to complete mycelium failure or weak pinning. Sourcing fresh, pure F1 grain spawn ensures aggressive mycelium colonization, which naturally crowd out competing molds and boost your overall harvest yield by up to 25%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the common pests/diseases in commercial setups, and how are they managed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Green mold, wet bubble disease, and flies can impact yield under low hygienic standards. Our training focuses extensively on strict sanitation protocols, organic pesticide formulas, and correct pasteurization of composting layers to keep crops perfectly clean."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is your program recognized as the best mushroom training institute in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We combine decades of real commercial farming experience with high-tech laboratory infrastructure and an easy-to-learn educational style. Rather than just offering simple theories, we provide validated scientific SOPs, live support, reliable seed supply chains, and actual turnkey consulting globally."
+          }
+        }
       ]
     }
+  ]
+}
     </script>
+
+  </head>
+
+  <body>
+    <!-- ✅ GTM noscript (SINGLE only) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6PD72F4"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div id="root"></div>
+    <div id="seo-fallback" style="display: none;">
+      <!-- ⚠️ SEO PRE-RENDERED STATIC FALLBACK CONTENT (Crucial for Non-JS / Simple E-E-A-T Crawlers) -->
+      <header style="display: none;">
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/training">Mushroom Training</a></li>
+            <li><a href="/services">Our Services</a></li>
+            <li><a href="/spawn-seed">Mushroom Spawn (Seed)</a></li>
+            <li><a href="/roi-calculator">ROI Calculator</a></li>
+            <li><a href="/business-plan">Business Plan</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/refund-policy">Refund Policy</a></li>
+            <li><a href="/shipping-policy">Shipping Policy</a></li>
+            <li><a href="/support">Customer Support Helpline</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </nav>
+      </header>
+      <footer style="display: none;">
+        <p>© 2026 Organic Mushrooms Farm (Agrimotion Engineering Pvt. Ltd.). All Rights Reserved. Katangi Road, Jabalpur, Madhya Pradesh, India, 482002.</p>
+        <p>Helpline: <a href="tel:+919203544140">+91 9203544140</a> | WhatsApp: <a href="https://wa.me/919203544140">+91 9203544140</a> | Email: <a href="mailto:support@mushroomtraining.online">support@mushroomtraining.online</a></p>
+        <nav>
+          <a href="/about">About Us</a> | 
+          <a href="/contact">Contact Support</a> | 
+          <a href="/privacy">Privacy Policy</a> | 
+          <a href="/refund-policy">Refund Policy</a> | 
+          <a href="/shipping-policy">Shipping & G1 Spawn Transport Policy</a> | 
+          <a href="/support">Customer Support & Helpline</a> | 
+          <a href="/terms">Terms of Service</a>
+        </nav>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

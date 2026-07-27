@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block unwanted backend folders
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://organicmushroomsfarm.com/sitemap-main.xml

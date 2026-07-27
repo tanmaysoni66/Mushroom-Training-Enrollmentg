@@ -1,17 +1,108 @@
-__pycache__
-.claude
-.cursor
-.pytest_cache
-.ruff_cache
-.serena
-.venv
-agent_workspace
+# =========================
+# 📦 Dependencies
+# =========================
+node_modules/
+.pnp
+.pnp.js
+
+
+# =========================
+# 🏗️ Build Files
+# =========================
+dist/
+build/
+.next/
+.nuxt/
+.output/
+out/
+
+
+# =========================
+# 📝 Logs
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+
+
+# =========================
+# 💻 OS Files
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+
+
+# =========================
+# 🔐 Environment Files
+# =========================
 .env
-/logs/
-server.log
-/server.*.log
-debug-*.log
-.coverage
-llama_cache
-.smoke-results
-.vscode
+.env.local
+.env.development
+.env.production
+.env.staging
+.env.test
+
+# Allow example file
+!.env.example
+
+
+# =========================
+# 🔑 Secret / API Keys
+# =========================
+secrets.json
+*secret*
+*private*
+service-account*.json
+google-credentials*.json
+
+
+# =========================
+# 🛠️ Editor & IDE Files
+# =========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+# =========================
+# 📸 Uploaded / Temp Media
+# =========================
+public/uploads/
+public/temp/
+uploads/
+temp/
+
+
+# =========================
+# 🧪 Testing & Coverage
+# =========================
+coverage/
+.nyc_output/
+*.test.js.snap
+
+
+# =========================
+# ⚡ Cache Files
+# =========================
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+
+# =========================
+# 📊 Database / Backup Files
+# =========================
+*.sqlite
+*.db
+*.sql
+backup/
